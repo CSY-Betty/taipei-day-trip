@@ -1,4 +1,5 @@
 from flask import *
+from api_url import apibp
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
@@ -24,6 +25,9 @@ def booking():
 @app.route("/thankyou")
 def thankyou():
     return render_template("thankyou.html")
+
+
+app.register_blueprint(apibp, url_prefix="/api")
 
 
 app.run(host="0.0.0.0", port=3000)
