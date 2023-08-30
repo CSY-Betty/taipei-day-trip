@@ -1,7 +1,7 @@
-import os
 import json
 import re
 import mysql.connector
+from pathlib import Path
 
 # connect to sql by pool
 pool = mysql.connector.pooling.MySQLConnectionPool(
@@ -13,9 +13,10 @@ pool = mysql.connector.pooling.MySQLConnectionPool(
     database="tdtWeb",
 )
 
-json_file_path = os.path.join("data", "taipei-attractions.json")
+pathname = Path() / "data" / "taipei-attractions.json"
 
-with open(json_file_path, "r") as f:
+
+with open(pathname, "r") as f:
     data = json.load(f)
 
 
