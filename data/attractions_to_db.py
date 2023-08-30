@@ -37,11 +37,11 @@ for i in range(data["result"]["count"]):
     latitude = data["result"]["results"][i]["latitude"]
     longitude = data["result"]["results"][i]["longitude"]
     images = get_image(data["result"]["results"][i]["file"])
-    images_str = ",".join(images)
+    images_json = json.dumps(images)
 
     with pool.get_connection() as pooling:
         with pooling.cursor() as cursor:
-            sql = "INSERT INTO attractions(id, name, category, description, address, transport, mrt, lat, lng, images) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            sql_attraction = "INSERT INTO attractions(id, name, category, description, address, transport, mrt, lat, lng, images) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             values = (
                 id,
                 name,
@@ -52,7 +52,7 @@ for i in range(data["result"]["count"]):
                 mrt,
                 latitude,
                 longitude,
-                images_str,
+                images_json,
             )
-            cursor.execute(sql, values)
+            cursor.execute(sql_attraction, values)
         pooling.commit()
