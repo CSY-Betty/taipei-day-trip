@@ -13,7 +13,7 @@ pool = mysql.connector.pooling.MySQLConnectionPool(
     database="tdtWeb",
 )
 
-pathname = Path() / "data" / "taipei-attractions.json"
+pathname = Path() / "taipei-attractions.json"
 
 
 with open(pathname, "r") as f:
