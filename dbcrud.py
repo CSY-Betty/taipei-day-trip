@@ -41,8 +41,12 @@ def get_attraction_all(page, per_page):
 
 def get_attraction_with_keyword(keyword, page, per_page):
     offset = page * per_page
-    sql = "SELECT * FROM attractions WHERE name LIKE %s LIMIT %s OFFSET %s"
-    result = execute_sql_all(sql, "%" + keyword + "%", per_page, offset)
+    sql = (
+        "SELECT * FROM attractions WHERE name LIKE %s OR mrt LIKE %s LIMIT %s OFFSET %s"
+    )
+    result = execute_sql_all(
+        sql, "%" + keyword + "%", "%" + keyword + "%", per_page, offset
+    )
     return result
 
 
