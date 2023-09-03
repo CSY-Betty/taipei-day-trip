@@ -76,24 +76,9 @@ def get_attraction_byid(attractionId):
 def get_mrts():
     try:
         result = get_mrts_attractions()
-        attractions_count = {}
-        for item in result:
-            mrt = item["mrt"]
-
-            if mrt in attractions_count:
-                attractions_count[mrt] += 1
-            else:
-                attractions_count[mrt] = 1
-        sorted_attractions = sorted(
-            attractions_count.items(), key=lambda x: x[1], reverse=True
-        )
-        top_40 = []
-        data = {"data": top_40}
-        for sort in range(0, len(sorted_attractions[:40])):
-            top_40.append(sorted_attractions[sort][0])
-        json_string = json.dumps(data, ensure_ascii=False)
+        data = {"data": result}
         return (
-            json_string,
+            data,
             200,
             {"Content-Type": "application/json; charset=utf-8"},
         )
