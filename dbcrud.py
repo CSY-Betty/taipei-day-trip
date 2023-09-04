@@ -57,6 +57,7 @@ def get_attraction_withid(attractionId):
 
 
 def get_mrts_attractions():
-    sql = "SELECT mrt, name FROM attractions"
-    result = execute_sql_all(sql)
-    return result
+    sql = "SELECT mrt FROM attractions GROUP BY mrt ORDER BY COUNT(name) DESC LIMIT 40"
+    results = execute_sql_all(sql)
+    mrt_list = [result["mrt"] for result in results]
+    return mrt_list
