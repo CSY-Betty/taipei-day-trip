@@ -10,6 +10,16 @@ ul {
     list-style-type: none;
 }
 
+:root {
+    --primary-color-cyan-70: #448899;
+    --primary-color-cyan-50: #66AABB;
+    --primary-color-cyan-20: #AADDEE;
+    --secondary-color-gray-70: #666;
+    --secondary-color-gray-50: #757575;
+    --secondary-color-gray-20: #E8E8E8;
+    --secondary-color-gray-10: #F8F8F8;
+}
+
 .container {
     width: 1200px;
     margin-right: auto;
@@ -46,7 +56,7 @@ ul {
     color: var(--primary-color-cyan-70, #489);
 
     /* Header 2 - Bold 30(34) */
-    font-family: Noto Sans TC;
+    font-family: "Noto Sans TC", sans-serif;
     font-size: 30px;
     font-style: normal;
     font-weight: 700;
@@ -62,7 +72,7 @@ ul {
 
 .header-nav button {
     padding: 10px;
-    color: #666666;
+    color: var(--secondary-color-gray-70, #666);;
 }
 
 
@@ -117,7 +127,7 @@ ul {
     text-shadow: 0px 0px 30px #ABC;
 
     /* Header 1 - Bold 28(24) */
-    font-family: Noto Sans TC;
+    font-family: "Noto Sans TC", sans-serif;
     font-size: 28px;
     font-style: normal;
     font-weight: 700;
@@ -128,7 +138,7 @@ ul {
     color: var(--secondary-color-gray-10, #F8F8F8);
 
     /* Body - Bold 16(13.3) */
-    font-family: Noto Sans TC;
+    font-family: "Noto Sans TC", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -156,7 +166,7 @@ ul {
     color: var(--secondary-color-gray-50, #757575);
 
     /* Body - Bold 16(13.3) */
-    font-family: Noto Sans TC;
+    font-family: "Noto Sans TC", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -221,7 +231,7 @@ ul {
     text-align: center;
 
     /* Body - Med 16(13.3) */
-    font-family: Noto Sans TC;
+    font-family: "Noto Sans TC", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -289,7 +299,7 @@ ul {
     color: var(--additional-color-white, #FFF);
 
     /* Body - Bold 16(13.3) */
-    font-family: Noto Sans TC;
+    font-family: "Noto Sans TC", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -312,7 +322,7 @@ ul {
     color: var(--secondary-color-gray-50, #757575);
 
     /* Body - Med 16(13.3) */
-    font-family: Noto Sans TC;
+    font-family: "Noto Sans TC", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -338,7 +348,7 @@ ul {
     color: var(--additional-color-white, #FFF);
 
     /* Body - Bold 16(13.3) */
-    font-family: Noto Sans TC;
+    font-family: "Noto Sans TC", sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;

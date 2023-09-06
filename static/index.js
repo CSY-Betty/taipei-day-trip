@@ -25,6 +25,30 @@ fetch(`/api/mrts`, {
 });
 
 
+// list_bar左右捲動
+const leftBtn = document.getElementById("left_btn")
+const rightBtn = document.getElementById("right_btn")
+
+leftBtn.addEventListener("click", scrollLeft);
+rightBtn.addEventListener("click", scrollRight);
+
+function scrollLeft() {
+    mrtsContainer = document.getElementById("mrts_container");
+    const currentScrollLeft = mrtsContainer.scrollLeft;
+    const scrollAmount = 700;
+    const newScrollLeft = currentScrollLeft - scrollAmount;
+    mrtsContainer.scroll({top: 0, left: newScrollLeft, behavior: "smooth"});
+}
+
+function scrollRight() {
+    mrtsContainer = document.getElementById("mrts_container");
+    const currentScrollLeft = mrtsContainer.scrollLeft;
+    const scrollAmount = 700;
+    const newScrollLeft = currentScrollLeft + scrollAmount;
+    mrtsContainer.scroll({top: 0, left: newScrollLeft, behavior: "smooth"});
+}
+
+
 // 建立attractions
 function createAttraction(data) {
 	let container = document.getElementById("attractions");
@@ -83,13 +107,14 @@ function createAttraction(data) {
 	})
 }
 
-let next_page = 0;
+let nextPage = null; 
 let isLoading = false;
 let searchQuery = '';
 
+
 // 網頁開啟時，載入初始景點
 function loadInitialData() {
-	fetch(`/api/attractions?page=0`, {
+	fetch(`/api/attractions`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -98,33 +123,17 @@ function loadInitialData() {
 	.then(respose => respose.json())
 	.then(function(responseData) {
 		const application_list = responseData.data;
-		next_page = responseData.nextPage;
+		nextPage = responseData.nextPage;
+		searchQuery = null;
 		createAttraction(application_list)
-	});
+	})
 }
 
 loadInitialData()
 
 
 
-// 景點查詢
-document.getElementById("searchButton").addEventListener("click", function() {
-		const searchQuery = document.getElementById("searchBox").value;
-
-		clearCurrentContent();
-
-		fetch(`/api/attractions?keyword=${searchQuery}`, {method: "GET", headers: {"Content-Type": "application/json",},})
-
-		.then(response => response.json())
-		.then(function(responseData) {
-			const attractionList = responseData.data;
-			createAttraction(attractionList);
-
-			next_page = responseData.nextPage;
-			isLoading = false;
-		})
-})
-
+// 清空現有頁面
 function clearCurrentContent() {
 	const attractionContent = document.getElementById("attractions")
  
@@ -134,31 +143,55 @@ function clearCurrentContent() {
 }
 
 
-// 滾動觸發
-window.addEventListener("scroll", function() {
+
+// 景點查詢
+searchButton = document.getElementById("searchButton")
+searchButton.addEventListener("click", searchAttractions);
+
+function searchAttractions() {
+	searchQuery = document.getElementById("searchBox").value;
+
+	clearCurrentContent();
+
+	fetch(`/api/attractions?keyword=${searchQuery}`, {method: "GET", headers: {"Content-Type": "application/json",},})
+
+	.then(response => response.json())
+	.then(function(responseData) {
+		const attractionList = responseData.data;
+		nextPage = responseData.nextPage;
+
+		createAttraction(attractionList);
+
+	})
+}
+
+
+// 滾動加載監聽
+window.addEventListener("scroll", function(e) {
 	loadMore(searchQuery)
-});
+	}
+)
 
 function loadMore(searchQuery){
-    if (next_page === null || isLoading) {
-        return; // 停止加载
+    if (nextPage === null  || isLoading) {
+        return; // 停止加載
     }
-
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = window.scrollY;
     const clientHeight = window.innerHeight;
-    const scrollThreshold = 100; // 设置一个滚动阈值，用于触发加载
+    const scrollThreshold = 100; // 設置滾動閾值，用於觸發加載
 
-    // 当滚动到接近页面底部时触发加载
+    // 當滾動到接近頁面底部時，觸發加載
     if (scrollHeight - scrollTop - clientHeight < scrollThreshold) {
-        isLoading = true;
+		isLoading = true;
 
-		const url = searchQuery ? `/api/attractions?page=${next_page}&keyword=${searchQuery}`
-		: `/api/attractions?page=${next_page}`;
+		const searchurl = searchQuery !== null
+  		? `/api/attractions?keyword=${searchQuery}&page=${nextPage}`
+  		: `/api/attractions?page=${nextPage}`;
 
-        fetch(url, {
+        fetch(searchurl, {
             method: "GET",
-            headers: {
+            headers: {	
                 "Content-Type": "application/json",
             },
         })
@@ -167,16 +200,13 @@ function loadMore(searchQuery){
             const attractionList = responseData.data;
             createAttraction(attractionList);
 
-            // 增加页面号，以便下次加载下一页
-            next_page = responseData.nextPage;
+            nextPage = responseData.nextPage;
 
-            // 如果 next_page 为 null，将不再加载
-            if (next_page === null) {
-                window.removeEventListener("scroll", loadMore); // 移除滚动监听
+			if (nextPage === null) {
+                window.removeEventListener("scroll", loadMore);
             }
 
-            // 重置加载状态
-            isLoading = false;
+			isLoading = false;
         });
     }
 }
