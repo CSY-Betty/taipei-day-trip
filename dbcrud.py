@@ -18,13 +18,6 @@ def execute_sql_one(sql, *args):
             return cursor.fetchone()
 
 
-def execite_sql_many(sql, *args):
-    with pool.get_connection() as pooling:
-        with pooling.cursor(dictionary=True) as cursor:
-            cursor.execute(sql, args)
-            return cursor.fetchmany()
-
-
 def execute_sql_all(sql, *args):
     with pool.get_connection() as pooling:
         with pooling.cursor(dictionary=True) as cursor:
@@ -32,24 +25,19 @@ def execute_sql_all(sql, *args):
             return cursor.fetchall()
 
 
-def get_attraction_all(page, per_page):
+def get_all_attractions(keyword, page, per_page):
     offset = page * per_page
     limit = per_page + 1
-    sql = "SELECT * FROM attractions LIMIT %s OFFSET %s"
-    result = execute_sql_all(sql, limit, offset)
 
-    return result
+    if keyword == None:
+        sql = "SELECT * FROM attractions LIMIT %s OFFSET %s"
+        result = execute_sql_all(sql, limit, offset)
+    else:
+        sql = "SELECT * FROM attractions WHERE name LIKE %s OR mrt LIKE %s LIMIT %s OFFSET %s"
+        result = execute_sql_all(
+            sql, "%" + keyword + "%", "%" + keyword + "%", limit, offset
+        )
 
-
-def get_attraction_with_keyword(keyword, page, per_page):
-    offset = page * per_page
-    limit = per_page + 1
-    sql = (
-        "SELECT * FROM attractions WHERE name LIKE %s OR mrt LIKE %s LIMIT %s OFFSET %s"
-    )
-    result = execute_sql_all(
-        sql, "%" + keyword + "%", "%" + keyword + "%", limit, offset
-    )
     return result
 
 
