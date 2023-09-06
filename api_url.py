@@ -24,6 +24,7 @@ def get_attractions():
             item["images"] = json.loads(item["images"])
 
         next_page = page + 1 if len(result) >= per_page else None
+
         json_string = json.dumps(
             {"nextPage": next_page, "data": result_list}, ensure_ascii=False
         )
