@@ -1,0 +1,97 @@
+:root {
+    --primary-color-cyan-70: #448899;
+    --primary-color-cyan-50: #66AABB;
+    --primary-color-cyan-20: #AADDEE;
+    --secondary-color-gray-70: #666;
+    --secondary-color-gray-50: #757575;
+    --secondary-color-gray-20: #E8E8E8;
+    --secondary-color-gray-10: #F8F8F8;
+}
+
+.h1-bold {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.h2-bold {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 34px;
+}
+
+.h3-bold {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.h3-reg {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.btn-bold {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+.btn-reg {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.content-bold {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.content-reg {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;;
+}
+
+.body-bold {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 13.3px;
+}
+
+.body-med {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px;
+}
+
+.categorylist-med {
+    font-family: "Noto Sans TC", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

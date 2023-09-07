@@ -10,31 +10,42 @@
 			href="https://unpkg.com/ress/dist/ress.min.css"
 		/>
 		<link rel="stylesheet" type="text/css" href="../static/index.css" />
+		<link rel="stylesheet" type="text/css" href="../static/style.css" />
 	</head>
 	<body>
-		<header class="head fixed-top nav-sm">
-			<div class="container">
-				<h1 href="">台北一日遊</h1>
+		<header class="head fixed-top">
+			<div class="head-content">
+				<div class="h2-bold">台北一日遊</div>
 				<nav>
 					<ul class="header-nav">
-						<li><button type="button">預定行程</button></li>
-						<li><button type="button">登入/註冊</button></li>
+						<li>
+							<button class="body-med" type="button">
+								預定行程
+							</button>
+						</li>
+						<li>
+							<button class="body-med" type="button">
+								登入/註冊
+							</button>
+						</li>
 					</ul>
 				</nav>
 			</div>
 		</header>
 		<section>
-			<div class="welcome welcome__bg">
+			<div class="welcome">
 				<div class="welcome__item container">
 					<div class="slogan">
-						<h1>輕鬆享受台北一日悠閒</h1>
-						<span>探索每個角落，體驗城市的深度旅遊行程</span>
+						<div class="h1-bold">輕鬆享受台北一日悠閒</div>
+						<div class="body-bold">
+							探索每個角落，體驗城市的深度旅遊行程
+						</div>
 					</div>
 
 					<div class="search">
 						<input
 							id="searchBox"
-							class="search_bar search_bar__font"
+							class="search_bar body-bold"
 							type="text"
 							placeholder="輸入景點名稱查詢"
 						/>
@@ -52,9 +63,7 @@
 			<div id="attractions" class="attractions"></div>
 		</main>
 		<footer class="footer">
-			<div class="container footer__text">
-				COPYRIGHT © 2021 台北一日遊
-			</div>
+			<div class="container body-bold">COPYRIGHT © 2021 台北一日遊</div>
 		</footer>
 		<script defer type="text/javascript" src="../static/index.js"></script>
 	</body>

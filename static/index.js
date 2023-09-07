@@ -1,25 +1,3 @@
-function fetchAndDisplayAttractions(searchQuery) {
-    clearCurrentContent();
-
-    fetch(`/api/attractions?keyword=${searchQuery}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-    .then(response => response.json())
-    .then(function(responseData) {
-        const attractionList = responseData.data;
-        if (attractionList.length === 0) {
-            createNoData();
-        } else {
-            nextPage = responseData.nextPage;
-            createAttraction(attractionList);
-        }
-    });
-}
-
-
 // 建立list_bar
 function createMrtList(data){
 	let container = document.getElementById("mrts_container");
@@ -28,7 +6,7 @@ function createMrtList(data){
 		let div =document.createElement("button");
 		div.textContent = mrt_name;
 		container.appendChild(div);
-		div.classList.add("mrt_button")
+		div.classList.add("mrt_button", "body-med")
 	});
 }
 
@@ -72,7 +50,7 @@ rightBtn.addEventListener("click", scrollRight);
 function scrollLeft() {
     mrtsContainer = document.getElementById("mrts_container");
     const currentScrollLeft = mrtsContainer.scrollLeft;
-    const scrollAmount = 700;
+    const scrollAmount = mrtsContainer.clientWidth - 20;
     const newScrollLeft = currentScrollLeft - scrollAmount;
     mrtsContainer.scroll({top: 0, left: newScrollLeft, behavior: "smooth"});
 }
@@ -80,13 +58,13 @@ function scrollLeft() {
 function scrollRight() {
     mrtsContainer = document.getElementById("mrts_container");
     const currentScrollLeft = mrtsContainer.scrollLeft;
-    const scrollAmount = 700;
+    const scrollAmount = mrtsContainer.clientWidth - 20;
     const newScrollLeft = currentScrollLeft + scrollAmount;
     mrtsContainer.scroll({top: 0, left: newScrollLeft, behavior: "smooth"});
 }
 
 
-// 關鍵字查詢無資料
+// 建立查無資料
 function createNoData(){
 	let container = document.getElementById("attractions");
 	attractionNoData = document.createElement("div");
@@ -118,15 +96,17 @@ function createAttraction(data) {
 		// 創建景點名稱元素
 		let nameDiv = document.createElement("div");
 		nameDiv.textContent = attraction_name;
-		nameDiv.classList.add("attraction_name")
+		nameDiv.classList.add("attraction_name", "body-bold")
 
 		// 創建捷運名稱元素
 		let attractionMrtDiv = document.createElement("div");
 		attractionMrtDiv.textContent = attraction_mrt;
+		attractionMrtDiv.classList.add("attraction_mrt", "body-med");
 
 		// 創建特徵元素
 		let categoryDiv = document.createElement("div");
 		categoryDiv.textContent = attraction_category;
+		categoryDiv.classList.add("attraction_category", "body-med");
 
 		// 創建描述容器
 		let describeContainer = document.createElement("div");
@@ -179,11 +159,11 @@ function loadInitialData() {
 
 // 清空現有頁面
 function clearCurrentContent() {
-	const attractionContent = document.getElementById("attractions")
- 
-	while (attractionContent.firstChild) {
-		attractionContent.removeChild(attractionContent.firstChild);
-	}
+    const attractionWrappers = document.querySelectorAll(".attraction_wrapper");
+	
+    attractionWrappers.forEach(element => {
+        element.remove();
+    });
 }
 
 
@@ -194,6 +174,27 @@ searchButton.addEventListener("click", function(){
 	fetchAndDisplayAttractions(searchQuery);
 });
 
+// 關鍵字查詢
+function fetchAndDisplayAttractions(searchQuery) {
+    clearCurrentContent();
+
+    fetch(`/api/attractions?keyword=${searchQuery}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => response.json())
+    .then(function(responseData) {
+        const attractionList = responseData.data;
+        if (attractionList.length === 0) {
+            createNoData();
+        } else {
+            nextPage = responseData.nextPage;
+            createAttraction(attractionList);
+        }
+    });
+}
 
 // 滾動加載監聽
 window.addEventListener("scroll", function(e) {
