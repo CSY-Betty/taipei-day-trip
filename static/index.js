@@ -1,3 +1,25 @@
+function fetchAndDisplayAttractions(searchQuery) {
+    clearCurrentContent();
+
+    fetch(`/api/attractions?keyword=${searchQuery}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => response.json())
+    .then(function(responseData) {
+        const attractionList = responseData.data;
+        if (attractionList.length === 0) {
+            createNoData();
+        } else {
+            nextPage = responseData.nextPage;
+            createAttraction(attractionList);
+        }
+    });
+}
+
+
 // 建立list_bar
 function createMrtList(data){
 	let container = document.getElementById("mrts_container");
@@ -33,26 +55,10 @@ fetch(`/api/mrts`, {
 			const buttonText = this.textContent;
 			
 			searchQuery = buttonText;
-
-			clearCurrentContent();
-
-			fetch(`/api/attractions?keyword=${searchQuery}`, {method: "GET", headers: {"Content-Type": "application/json",},})
-
-			.then(response => response.json())
-			.then(function(responseData) {
-				const attractionList = responseData.data;
-				if (attractionList.length === 0) {
-					createNoData();
-				}
-				else {
-					nextPage = responseData.nextPage;
-
-					createAttraction(attractionList);
-				}		
-			})
-		});
+			fetchAndDisplayAttractions(searchQuery);
+			
+		})
 	});
-
 });
 
 
@@ -183,31 +189,10 @@ function clearCurrentContent() {
 
 // 景點查詢
 searchButton = document.getElementById("searchButton");
-searchButton.addEventListener("click", searchAttractions);
-
-function searchAttractions() {
+searchButton.addEventListener("click", function(){
 	searchQuery = document.getElementById("searchBox").value;
-
-	clearCurrentContent();
-
-	fetch(`/api/attractions?keyword=${searchQuery}`, {method: "GET", headers: {"Content-Type": "application/json",},})
-
-	.then(response => response.json())
-	.then(function(responseData) {
-		const attractionList = responseData.data;
-		if (attractionList.length === 0) {
-			createNoData();
-		}
-		else {
-			nextPage = responseData.nextPage;
-
-			createAttraction(attractionList);
-		}		
-	})
-}
-
-
-
+	fetchAndDisplayAttractions(searchQuery);
+});
 
 
 // 滾動加載監聽
