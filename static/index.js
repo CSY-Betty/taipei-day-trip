@@ -1,5 +1,4 @@
 // 建立list_bar
-
 function createMrtList(data){
 	let container = document.getElementById("mrts_container");
 
@@ -7,6 +6,7 @@ function createMrtList(data){
 		let div =document.createElement("button");
 		div.textContent = mrt_name;
 		container.appendChild(div);
+		div.classList.add("mrt_button")
 	});
 }
 
@@ -21,7 +21,38 @@ fetch(`/api/mrts`, {
 .then(respose => respose.json())
 .then(function(responseData) {
     const mrt_list = responseData.data;
-	createMrtList(mrt_list)
+
+	const filteredMrtList = mrt_list.filter(item => item !== null);
+
+	createMrtList(filteredMrtList)
+
+	mrtButtons = document.querySelectorAll(".mrt_button");
+
+	mrtButtons.forEach(button => {
+		button.addEventListener("click", function () {
+			const buttonText = this.textContent;
+			
+			searchQuery = buttonText;
+
+			clearCurrentContent();
+
+			fetch(`/api/attractions?keyword=${searchQuery}`, {method: "GET", headers: {"Content-Type": "application/json",},})
+
+			.then(response => response.json())
+			.then(function(responseData) {
+				const attractionList = responseData.data;
+				if (attractionList.length === 0) {
+					createNoData();
+				}
+				else {
+					nextPage = responseData.nextPage;
+
+					createAttraction(attractionList);
+				}		
+			})
+		});
+	});
+
 });
 
 
@@ -48,6 +79,16 @@ function scrollRight() {
     mrtsContainer.scroll({top: 0, left: newScrollLeft, behavior: "smooth"});
 }
 
+
+// 關鍵字查詢無資料
+function createNoData(){
+	let container = document.getElementById("attractions");
+	attractionNoData = document.createElement("div");
+	attractionNoData.classList.add("attraction_nodata");
+	attractionNoData.textContent = "查無相關景點"
+
+	container.appendChild(attractionNoData);
+}
 
 // 建立attractions
 function createAttraction(data) {
@@ -129,9 +170,6 @@ function loadInitialData() {
 	})
 }
 
-loadInitialData()
-
-
 
 // 清空現有頁面
 function clearCurrentContent() {
@@ -143,9 +181,8 @@ function clearCurrentContent() {
 }
 
 
-
 // 景點查詢
-searchButton = document.getElementById("searchButton")
+searchButton = document.getElementById("searchButton");
 searchButton.addEventListener("click", searchAttractions);
 
 function searchAttractions() {
@@ -158,12 +195,19 @@ function searchAttractions() {
 	.then(response => response.json())
 	.then(function(responseData) {
 		const attractionList = responseData.data;
-		nextPage = responseData.nextPage;
+		if (attractionList.length === 0) {
+			createNoData();
+		}
+		else {
+			nextPage = responseData.nextPage;
 
-		createAttraction(attractionList);
-
+			createAttraction(attractionList);
+		}		
 	})
 }
+
+
+
 
 
 // 滾動加載監聽
@@ -198,15 +242,19 @@ function loadMore(searchQuery){
         .then(response => response.json())
         .then(function (responseData) {
             const attractionList = responseData.data;
-            createAttraction(attractionList);
+			
+			createAttraction(attractionList);
 
-            nextPage = responseData.nextPage;
+			nextPage = responseData.nextPage;
 
 			if (nextPage === null) {
-                window.removeEventListener("scroll", loadMore);
-            }
+				window.removeEventListener("scroll", loadMore);
+			}
 
 			isLoading = false;
-        });
+        	
+		});
     }
 }
+
+loadInitialData()
