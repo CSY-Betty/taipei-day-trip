@@ -34,7 +34,11 @@ fetch(`/api/mrts`, {
 			
 			searchQuery = buttonText;
 			fetchAndDisplayAttractions(searchQuery);
-			resetSearchBox();
+
+			searchBox = document.getElementById("searchBox");
+   			searchBox.value = "";
+    		searchBox.setAttribute("placeholder", buttonText);
+			
 			
 		})
 	});
@@ -257,10 +261,12 @@ function loadMore(searchQuery){
     }
 }
 
+
+// 清空搜尋框
 function resetSearchBox() {
     const searchBox = document.getElementById("searchBox");
-    searchBox.value = ""; // 清空輸入框的值
-    searchBox.setAttribute("placeholder", "輸入景點名稱查詢"); // 設定 placeholder 文本
+    searchBox.value = "";
+    searchBox.setAttribute("placeholder", "輸入景點名稱查詢");
 }
 
 
