@@ -220,7 +220,7 @@ ul {
     grid-row-gap: 30px;
     grid-column-gap: 30px;
 	padding: 0 15px 0 15px;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .attraction_wrapper {
@@ -301,6 +301,9 @@ ul {
     text-align: right;
 }
 
+.attraction_nodata.content-bold {
+    color: var(--secondary-color-gray-50, #757575);
+}
 
 
 /* FOOTER

@@ -34,6 +34,7 @@ fetch(`/api/mrts`, {
 			
 			searchQuery = buttonText;
 			fetchAndDisplayAttractions(searchQuery);
+			resetSearchBox();
 			
 		})
 	});
@@ -68,7 +69,7 @@ function scrollRight() {
 function createNoData(){
 	let container = document.getElementById("attractions");
 	attractionNoData = document.createElement("div");
-	attractionNoData.classList.add("attraction_nodata");
+	attractionNoData.classList.add("attraction_nodata", "content-bold");
 	attractionNoData.textContent = "查無相關景點"
 
 	container.appendChild(attractionNoData);
@@ -134,6 +135,14 @@ function createAttraction(data) {
 	})
 }
 
+// 返回初始畫面
+titleButton = document.getElementById("title");
+titleButton.addEventListener("click", function(){
+	clearCurrentContent();
+	resetSearchBox();
+	loadInitialData();
+});
+
 let nextPage = null; 
 let isLoading = false;
 let searchQuery = '';
@@ -160,8 +169,13 @@ function loadInitialData() {
 // 清空現有頁面
 function clearCurrentContent() {
     const attractionWrappers = document.querySelectorAll(".attraction_wrapper");
+
+	const attractionNoData = document.querySelectorAll(".attraction_nodata")
 	
     attractionWrappers.forEach(element => {
+        element.remove();
+    });
+	attractionNoData.forEach(element => {
         element.remove();
     });
 }
@@ -242,5 +256,12 @@ function loadMore(searchQuery){
 		});
     }
 }
+
+function resetSearchBox() {
+    const searchBox = document.getElementById("searchBox");
+    searchBox.value = ""; // 清空輸入框的值
+    searchBox.setAttribute("placeholder", "輸入景點名稱查詢"); // 設定 placeholder 文本
+}
+
 
 loadInitialData()
