@@ -14,16 +14,15 @@ def get_attractions():
 
         keyword = request.args.get("keyword", None)
 
-        if keyword == None:
-            result = get_attraction_all(page, per_page)
-        else:
-            result = get_attraction_with_keyword(keyword, page, per_page)
+        result = get_all_attractions(keyword, page, per_page)
 
-        result_list = [dict(row) for row in result]
+        result_list = [dict(row) for row in result[:per_page]]
+
         for item in result_list:
             item["images"] = json.loads(item["images"])
 
-        next_page = page + 1 if len(result) >= per_page else None
+        next_page = page + 1 if len(result) > per_page else None
+
         json_string = json.dumps(
             {"nextPage": next_page, "data": result_list}, ensure_ascii=False
         )
