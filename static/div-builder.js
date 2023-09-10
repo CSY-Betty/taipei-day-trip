@@ -17,8 +17,10 @@ export function createMrtList(data){
 // 建立attractions
 export function createAttraction(data) {
 	let container = document.getElementById("attractions");
-
-	data.forEach((item) => {
+	
+	const attractionData = data.data;
+	
+	attractionData.forEach((item) => {
 		let attraction_name = item.name
 		let attraction_category = item.category
 		let attraction_mrt = item.mrt

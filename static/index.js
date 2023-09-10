@@ -40,24 +40,26 @@ function mrtButtonHandler() {
 };
 
 
-// api連接-attractions
-function loadInitialData() {
-	fetch(`/api/attractions`, {
+// api連接-取得Attraction資料
+function getAttractionData() {
+	return fetch(`/api/attractions`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
 		},
 	})
-	.then(respose => respose.json())
-	.then(function(responseData) {
-		let application_list = responseData.data;
-		nextPage = responseData.nextPage;
-		searchQuery = null;
-		divBuilder.createAttraction(application_list)
-	})
+	.then(respose => respose.json());
 }
 
-loadInitialData();
+
+function loadAttractionData() {
+    getAttractionData().then(attractionData => {
+        nextPage = attractionData.nextPage;
+        searchQuery = null;
+        divBuilder.createAttraction(attractionData)
+    });
+}
+
 
 // 清空現有頁面
 function clearCurrentContent() {
@@ -92,15 +94,27 @@ function fetchAndDisplayAttractions(searchQuery) {
     })
     .then(response => response.json())
     .then(function(responseData) {
-        const attractionList = responseData.data;
         if (attractionList.length === 0) {
             divBuilder.createNoData();
         } else {
             nextPage = responseData.nextPage;
-            divBuilder.createAttraction(attractionList);
+            divBuilder.createAttraction(responseData);
         }
     });
 }
+
+
+
+
+
+loadAttractionData();
+getMRTData().then(MrtData => {
+    divBuilder.createMrtList(MrtData);
+    mrtButtonHandler();
+});
+
+
+
 
 // 滾動加載監聽
 window.addEventListener("scroll", function(e) {
@@ -135,7 +149,7 @@ function loadMore(searchQuery){
         .then(function (responseData) {
             const attractionList = responseData.data;
 			
-			divBuilder.createAttraction(attractionList);
+			divBuilder.createAttraction(responseData);
 
 			nextPage = responseData.nextPage;
 
@@ -155,7 +169,7 @@ let titleButton = document.getElementById("title");
 titleButton.addEventListener("click", function(){
 	clearCurrentContent();
 	resetSearchBox();
-	loadInitialData();
+	loadAttractionData();
 });
 
 // 清空搜尋框
@@ -192,10 +206,7 @@ function scroll(direction) {
 
 
 
-getMRTData().then(MrtData => {
-    divBuilder.createMrtList(MrtData);
-    mrtButtonHandler();
-});
+
 
 // list_bar左右捲動
 listBarScroll();
