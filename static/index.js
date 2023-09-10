@@ -141,7 +141,6 @@ function loadMore(searchQuery){
         })
         .then(response => response.json())
         .then(function (responseData) {
-            const attractionList = responseData.data;
 			
 			divBuilder.createAttraction(responseData);
 
