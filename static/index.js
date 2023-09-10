@@ -7,21 +7,18 @@ let searchQuery = '';
 
 
 
-// api連接-MRT
-function loadMRTList() {
+// api連接-取得MRT資料
+function getMRTData() {
     return fetch(`/api/mrts`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
     })
-    .then(respose => respose.json())
-    .then(function(responseData) {
-        const mrt_list = responseData.data;
-        const filteredMrtList = mrt_list.filter(item => item !== null);
-        return filteredMrtList;
-    });
+    .then(respose => respose.json());
 };
+
+
 
 // 監聽器-list_bar
 function mrtButtonHandler() {
@@ -60,6 +57,7 @@ function loadInitialData() {
 	})
 }
 
+loadInitialData();
 
 // 清空現有頁面
 function clearCurrentContent() {
@@ -192,10 +190,10 @@ function scroll(direction) {
 }
 
 
-loadInitialData();
 
-loadMRTList().then(filteredMrtList => {
-    divBuilder.createMrtList(filteredMrtList);
+
+getMRTData().then(MrtData => {
+    divBuilder.createMrtList(MrtData);
     mrtButtonHandler();
 });
 

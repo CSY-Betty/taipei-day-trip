@@ -2,7 +2,10 @@
 export function createMrtList(data){
 	let container = document.getElementById("mrts_container");
 
-	data.forEach((mrt_name) => {
+	const mrt_list = data.data;
+	const filteredMrtList = mrt_list.filter(item => item !== null);
+
+	filteredMrtList.forEach((mrt_name) => {
 		let div =document.createElement("button");
 		div.textContent = mrt_name;
 		container.appendChild(div);
