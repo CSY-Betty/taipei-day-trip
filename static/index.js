@@ -19,27 +19,6 @@ function getMRTData() {
 };
 
 
-
-// 監聽器-list_bar
-function mrtButtonHandler() {
-    let mrtButtons = document.querySelectorAll(".mrt_button");
-    mrtButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const buttonText = this.textContent;
-            
-            let searchQuery = buttonText;
-            clearCurrentContent();
-            fetchAndDisplayAttractions(searchQuery);
-
-            // 更換搜尋欄顯示文字
-            let searchBox = document.getElementById("searchBox");
-                searchBox.value = "";
-            searchBox.setAttribute("placeholder", buttonText);			
-        });
-    });
-};
-
-
 // api連接-取得Attraction資料
 function getAttractionData() {
 	return fetch(`/api/attractions`, {
@@ -50,6 +29,37 @@ function getAttractionData() {
 	})
 	.then(respose => respose.json());
 }
+
+// api連接-取得Keyword資料
+function getKeywordData(searchQuery) {
+    return fetch(`/api/attractions?keyword=${searchQuery}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => response.json());
+}
+
+
+// 監聽器-list_bar
+function mrtButtonHandler() {
+    let mrtButtons = document.querySelectorAll(".mrt_button");
+    mrtButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const buttonText = this.textContent;
+            
+            let searchQuery = buttonText;
+            clearCurrentContent();
+            searchByKeyword(searchQuery);
+
+            // 更換搜尋欄顯示文字
+            let searchBox = document.getElementById("searchBox");
+                searchBox.value = "";
+            searchBox.setAttribute("placeholder", buttonText);			
+        });
+    });
+};
 
 
 function loadAttractionData() {
@@ -81,39 +91,23 @@ const searchButton = document.getElementById("searchButton");
 searchButton.addEventListener("click", function(){
 	searchQuery = document.getElementById("searchBox").value;
     clearCurrentContent();
-	fetchAndDisplayAttractions(searchQuery);
+	searchByKeyword(searchQuery);
 });
+
+
 
 // 關鍵字查詢
-function fetchAndDisplayAttractions(searchQuery) {
-    fetch(`/api/attractions?keyword=${searchQuery}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-    .then(response => response.json())
-    .then(function(responseData) {
-        if (attractionList.length === 0) {
+function searchByKeyword(searchQuery) {
+    getKeywordData(searchQuery).then(data => {
+        const attractionData = data.data
+        if (attractionData.length === 0) {
             divBuilder.createNoData();
         } else {
-            nextPage = responseData.nextPage;
-            divBuilder.createAttraction(responseData);
+            nextPage = data.nextPage;
+            divBuilder.createAttraction(data);
         }
-    });
+    })
 }
-
-
-
-
-
-loadAttractionData();
-getMRTData().then(MrtData => {
-    divBuilder.createMrtList(MrtData);
-    mrtButtonHandler();
-});
-
-
 
 
 // 滾動加載監聽
@@ -204,9 +198,11 @@ function scroll(direction) {
 }
 
 
-
-
-
+loadAttractionData();
+getMRTData().then(MrtData => {
+    divBuilder.createMrtList(MrtData);
+    mrtButtonHandler();
+});
 
 // list_bar左右捲動
 listBarScroll();
