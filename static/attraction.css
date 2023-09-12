@@ -1,0 +1,232 @@
+.container {
+    width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* SECTION
+-------------------- */
+
+.attraction-info {
+    display: flex;
+    flex-direction: row;
+    height: 400px;
+    padding: 0 15px;
+    margin: 91px 0 37px 0 ;
+}
+
+.attraction-img {
+    height: 400px;
+    width: 540px;
+    margin: 0 30px 0 0;
+    position: relative;
+    overflow:  hidden;
+    border-radius: 5px;
+}
+
+.image-slider {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* white-space: nowrap; */
+    overflow: hidden;
+}
+
+
+.image-slider img{
+    flex: 0 0 auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+}
+
+.img-button {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0px;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;    
+    filter: opacity(0.6);
+
+}
+
+.img-left {
+    background-image: url(./icon/btn_leftimg.png);
+    width: 36px;
+    height: 36px;
+}
+
+.img-right {
+    background-image: url(./icon/btn_rightimg.png);
+    width: 36px;
+    height: 36px;
+}
+
+
+.attraction-main {
+    display: flex;
+    flex-direction: column;
+    padding: 9px 0 ;
+}
+
+.attraction-main .h3-bold {
+    color: var(--secondary-color-gray-70, #666);;
+}
+
+.attraction-tag {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+}
+
+.attraction-tag.body-med {
+    color: var(--secondary-color-gray-70, #666);;
+}
+
+
+/* SECTION-ORDER
+-------------------- */
+.order {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+    height: 302px;
+    width: 600px;
+    background-color: var(--secondary-color-gray-20, #E8E8E8);
+    border-radius: 5px;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 20px;
+}
+
+/* SECTION-ORDER--date
+-------------------- */
+.order-date {
+    display: flex;
+    align-items: center;
+    height: 35px;
+}
+
+.order-date-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 193px;
+    height: 35px;
+    background-color: #FFF;
+    padding: 5px 10px;
+}
+
+.date-select {
+    width: 149px;
+}
+
+.date-icon {
+    background-image: url(./icon/icon_calendar.png);
+    width: 24px;
+    height: 24px;
+}
+
+
+/* SECTION-ORDER--time
+-------------------- */
+.order-time {
+    display: flex;
+    align-items: center;
+    height: 35px;
+}
+
+.order-time-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.time-icon-up {
+    background-image: url(./icon/select-btn.png);
+    width: 22px;
+    height: 22px;
+    margin-left: 5px;
+    margin-right: 4px;
+}
+
+.time-icon-down {
+    background-image: url(./icon/unselect-btn.png);
+    width: 22px;
+    height: 22px;
+    margin-left: 5px;
+    margin-right: 4px;
+}
+
+/* SECTION-ORDER--price
+-------------------- */
+.order-price {
+    display: flex;
+    align-items: center;
+    height: 35px;
+}
+
+.order-title.body-bold {
+    color: var(--secondary-color-gray-70, #666);;
+}
+
+.order-info.body-med {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.order-time-block.body-med {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.order-price-block.body-med {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.order-check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 154px;
+    height: 36px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: var(--primary-color-cyan-70, #489);;
+}
+
+.order-check.btn-reg {
+    color: var(--additional-color-white, #FFF);
+}
+
+
+/* MAIN
+-------------------- */
+.attraction-describe {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 10px 0 10px;
+    border-top: 1px solid #E8E8E8;
+    gap: 20px;
+}
+
+.attraction-describe-title {
+    display: flex;
+    height: 32px;
+    align-items: center;
+}
+
+.attraction-describe .body-bold {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.attraction-describe .content-reg {
+    color: var(--secondary-color-gray-70, #666);
+}

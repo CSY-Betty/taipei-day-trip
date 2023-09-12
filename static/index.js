@@ -120,6 +120,8 @@ function loadMore(searchQuery){
     if (nextPage === null  || isLoading) {
         return; // 停止加載
     }
+
+    // 整個畫面的高度
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = window.scrollY;
     const clientHeight = window.innerHeight;
