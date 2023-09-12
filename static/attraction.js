@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 1000); // 1秒后执行查询
 });
 
-console.log(imagesCount)
 
 let currentIndex = 0
 
@@ -153,6 +152,30 @@ imgRight.addEventListener("click", function() {
     }
 });
 
+
+let morning = document.getElementById("morning");
+let afternoon = document.getElementById("afternoon");
+afternoon.addEventListener("click", function() {
+	iconUp = document.querySelector(".time-icon-up");
+	iconDown = document.querySelector(".time-icon-down");
+
+	iconUp.style.backgroundImage = "url(../static/icon/unselect-btn.png)";
+	iconDown.style.backgroundImage = "url(../static//icon/select-btn.png)";
+
+	guidanceFee = document.getElementById("guidanceFee")
+	guidanceFee.textContent = '新台幣2500元';
+})
+
+morning.addEventListener("click", function() {
+	iconUp = document.querySelector(".time-icon-up");
+	iconDown = document.querySelector(".time-icon-down");
+
+	iconUp.style.backgroundImage = "url(../static/icon/select-btn.png)";
+	iconDown.style.backgroundImage = "url(../static//icon/unselect-btn.png)";
+
+	guidanceFee = document.getElementById("guidanceFee")
+	guidanceFee.textContent = '新台幣2000元';
+})
 
 
 

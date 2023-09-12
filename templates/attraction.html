@@ -73,9 +73,15 @@
 								>選擇時間：</span
 							>
 							<div class="order-time-block body-med">
-								<button class="time-icon-up"></button>
+								<button
+									id="morning"
+									class="time-icon-up"
+								></button>
 								<div class="time-select">上半天</div>
-								<button class="time-icon-down"></button>
+								<button
+									id="afternoon"
+									class="time-icon-down"
+								></button>
 								<div class="time-select">下半天</div>
 							</div>
 						</div>
@@ -85,7 +91,9 @@
 								>導覽費用：</span
 							>
 							<div class="order-price-block body-med">
-								<div class="price-select">新台幣2000元</div>
+								<div id="guidanceFee" class="price-select">
+									新台幣2000元
+								</div>
 							</div>
 						</div>
 
@@ -114,6 +122,10 @@
 		<footer class="footer">
 			<div class="container body-bold">COPYRIGHT © 2021 台北一日遊</div>
 		</footer>
-		<script defer type="module" src="../static/attraction.js"></script>
+		<script
+			defer
+			type="text/javascript"
+			src="../static/attraction.js"
+		></script>
 	</body>
 </html>
