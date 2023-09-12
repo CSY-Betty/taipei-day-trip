@@ -4,6 +4,17 @@
     margin-left: auto;
 }
 
+@media (max-width: 1200px) {
+    .container {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
 /* SECTION
 -------------------- */
 
@@ -24,11 +35,27 @@
     border-radius: 5px;
 }
 
+@media (max-width: 1200px) {
+    .attraction-info {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        margin: 54px 0 40px 0 ;
+    }
+
+    .attraction-img{
+        width: auto;
+        height: 350px;
+        border-radius: 0px;
+        margin: 0 auto;
+    }
+}
+
 .image-slider {
     width: 100%;
     height: 100%;
     display: flex;
-    /* white-space: nowrap; */
     overflow: hidden;
 }
 
@@ -107,6 +134,12 @@
     gap: 20px;
 }
 
+@media (max-width: 1200px) {
+    .order {
+        width: 100%;
+    }
+}
+
 /* SECTION-ORDER--date
 -------------------- */
 .order-date {
@@ -124,14 +157,18 @@
     height: 35px;
     background-color: #FFF;
     padding: 5px 10px;
+    position: relative;
 }
 
-.date-select {
-    width: 149px;
+input {
+    width: 173px;
+    position: absolute;
+    right: 10px;
+    left: 10px;
 }
 
-.date-icon {
-    background-image: url(./icon/icon_calendar.png);
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: url(./icon/icon_calendar.png) no-repeat;
     width: 24px;
     height: 24px;
 }
@@ -229,4 +266,10 @@
 
 .attraction-describe .content-reg {
     color: var(--secondary-color-gray-70, #666);
+}
+
+@media (max-width: 1200px) {
+    .attraction-describe {
+        margin: 0 10px 0 20px;
+    }
 }
