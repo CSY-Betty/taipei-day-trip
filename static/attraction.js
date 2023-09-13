@@ -5,7 +5,6 @@ titleButton.addEventListener("click", function(){
 });
 
 
-
 // 取得景點id
 const currentUrl = window.location.pathname;
 const attractionId = currentUrl.match(/\/attraction\/(\d+)/)[1];
@@ -46,11 +45,24 @@ function createAttractionInfo(data) {
 
 	// 製作所有圖片
 	attractionImages.forEach(imageUrl => {
+		const slideItem = document.createElement("div");
+		slideItem.classList.add("slide_item", "fades")
+
 		const image = document.createElement("img");
 		image.src = imageUrl;
-		imageSlider.appendChild(image);
+
+		slideItem.appendChild(image);
+		imageSlider.appendChild(slideItem);
 	});
 
+	const slideDot = document.getElementById("slideDot");
+	const dotNum = attractionImages.length
+	
+	for (let i = 0; i < dotNum; i++) {
+		const dot = document.createElement("div");
+		dot.classList.add("dot");
+		slideDot.appendChild(dot);
+	}
 
 	// 景點標題區塊
 	const mainContainer = document.getElementById("mainContainer");
@@ -109,50 +121,7 @@ function createAttractionInfo(data) {
 	describeContainer.insertBefore(description, describeContainer.firstChild);
 }
 
-
-let imagesCount;
-
-document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(function() {
-        imagesCount = document.querySelectorAll("#imageSlider img").length;;
-    }, 1000); // 1秒后执行查询
-});
-
-
-let currentIndex = 0
-
-fadeImage(currentIndex);
-
-function fadeImage(index) {
-    let imageElements = document.querySelectorAll("#imageSlider img");
-    if (index >= 0 && index < imageElements.length) {
-        imageElements[index].style.opacity = 1;
-		console.log(imageElements[index])
-        currentIndex = index;
-        // imageElements[currentIndex].style.opacity = 1;
-    }
-}
-
-
-
-let imgLeft = document.getElementById("imgLeft");
-let imgRight = document.getElementById("imgRight");
-
-imgLeft.addEventListener("click", function() {
-	if (currentIndex > 0) {
-		console.log("Left button clicked");
-		fadeImage(currentIndex - 1);
-	}
-});
-imgRight.addEventListener("click", function() {
-    let imageElements = document.querySelectorAll("#imageSlider img");
-    if (currentIndex < imageElements.length - 1) {
-        console.log("Right button clicked");
-        fadeImage(currentIndex + 1);
-    }
-});
-
-
+// 預定按鈕
 let morning = document.getElementById("morning");
 let afternoon = document.getElementById("afternoon");
 afternoon.addEventListener("click", function() {
@@ -177,10 +146,6 @@ morning.addEventListener("click", function() {
 	guidanceFee.textContent = '新台幣2000元';
 })
 
-
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
     getAttractionData().then(attractionData => {
         createAttractionInfo(attractionData);
@@ -189,32 +154,56 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// 圖片左右滑動
-// function imageScroll() {
-//     let imgLeft = document.getElementById("imgLeft");
-//     let imgRight = document.getElementById("imgRight");
 
-//     imgLeft.addEventListener("click", () => scroll('left'));
-//     imgRight.addEventListener("click", () => scroll('right'));
-// }
+window.onload = function () {
+	let slideIndex = 1;
 
-// function scroll(direction) {
-// 	const imageSlider = document.getElementById("imageSlider");
-//     const currentScrollLeft = imageSlider.scrollLeft;
-//     const scrollAmount = imageSlider.clientWidth;
-//     let newScrollLeft;
+	showSlide(slideIndex);
 
-	
+	let prev = document.getElementById("imgLeft");
+	prev.addEventListener("click", divideSlides, false);
 
-//     if (direction === 'left') {
-//         newScrollLeft = currentScrollLeft - scrollAmount;
-//     }
-//     else if (direction === 'right') {
-//         newScrollLeft = currentScrollLeft + scrollAmount;
-//     }
-//     imageSlider.scrollTo({
-//         left: newScrollLeft,
-//         behavior: "smooth"
-//     });
-// }
+	let next = document.getElementById("imgRight");
+	next.addEventListener("click", plusSlides, false);
+
+	const selectdot = document.querySelectorAll(".dot");
+	for (let i = 0; i <selectdot.length; i++) {
+		selectdot[i].addEventListener("click", function(e) {
+			showSlide((slideIndex = i + 1));
+		});
+	}
+
+	function plusSlides() {
+		showSlide((slideIndex += 1));
+	}
+
+
+	function divideSlides() {
+		showSlide((slideIndex -= 1));
+	}
+
+	function showSlide(num) {
+		let slides = document.getElementsByClassName("slide_item");
+		let dots = document.getElementsByClassName("dot");
+
+		if (num > slides.length) {
+			slideIndex = 1;
+		}
+
+		if (num < 1) {
+			slideIndex =slides.length;
+		}
+
+		for (let i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+
+		for (let i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace("active", "")
+		}
+
+		slides[slideIndex - 1].style.display = "block";
+		dots[slideIndex - 1].className += " active";
+	}
+}
 
