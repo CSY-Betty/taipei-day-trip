@@ -37,12 +37,6 @@ function createAttractionInfo(data) {
 	// 景點圖片區塊
 	const imageSlider = document.getElementById("imageSlider");
 
-	// 製作第一張圖片
-	// const imageUrl = attractionImages[0]
-	// const image = document.createElement("img");
-	// image.src = imageUrl;
-	// imageSlider.appendChild(image);
-
 	// 製作所有圖片
 	attractionImages.forEach(imageUrl => {
 		const slideItem = document.createElement("div");
@@ -57,11 +51,16 @@ function createAttractionInfo(data) {
 
 	const slideDot = document.getElementById("slideDot");
 	const dotNum = attractionImages.length
+
 	
 	for (let i = 0; i < dotNum; i++) {
 		const dot = document.createElement("div");
 		dot.classList.add("dot");
 		slideDot.appendChild(dot);
+
+		if (dotNum > 10) {
+			dot.style.margin = "8px";
+		}
 	}
 
 	// 景點標題區塊
@@ -132,7 +131,7 @@ afternoon.addEventListener("click", function() {
 	iconDown.style.backgroundImage = "url(../static//icon/select-btn.png)";
 
 	guidanceFee = document.getElementById("guidanceFee")
-	guidanceFee.textContent = '新台幣2500元';
+	guidanceFee.textContent = '新台幣 2500元';
 })
 
 morning.addEventListener("click", function() {
@@ -143,7 +142,7 @@ morning.addEventListener("click", function() {
 	iconDown.style.backgroundImage = "url(../static//icon/unselect-btn.png)";
 
 	guidanceFee = document.getElementById("guidanceFee")
-	guidanceFee.textContent = '新台幣2000元';
+	guidanceFee.textContent = '新台幣 2000元';
 })
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -153,9 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-
-
-window.onload = function () {
+window.addEventListener("load", function() {
 	let slideIndex = 1;
 
 	showSlide(slideIndex);
@@ -170,6 +167,7 @@ window.onload = function () {
 	for (let i = 0; i <selectdot.length; i++) {
 		selectdot[i].addEventListener("click", function(e) {
 			showSlide((slideIndex = i + 1));
+
 		});
 	}
 
@@ -205,5 +203,5 @@ window.onload = function () {
 		slides[slideIndex - 1].style.display = "block";
 		dots[slideIndex - 1].className += " active";
 	}
-}
+});
 

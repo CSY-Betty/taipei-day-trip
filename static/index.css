@@ -277,6 +277,9 @@ ul {
     align-items: center;
     padding: 10px;
     background: rgba(0, 0, 0, 0.6);
+    /* white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; */
 } 
 
 .attraction_name.body-bold {

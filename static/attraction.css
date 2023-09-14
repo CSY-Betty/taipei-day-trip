@@ -127,6 +127,8 @@
     border: 2px solid #FFF;
 }
 
+
+
 .fades {
     animation: 1.5s fades;
 }
@@ -209,15 +211,15 @@
 
 input {
     width: 173px;
-    position: absolute;
-    right: 10px;
-    left: 10px;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-    background: url(./icon/icon_calendar.png) no-repeat;
-    width: 24px;
-    height: 24px;
+    background: none;
+}
+
+.date-select {
+    background: url(./icon/icon_calendar.png) right / 18px 18px no-repeat;
+
 }
 
 
@@ -296,7 +298,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .attraction-describe {
     display: flex;
     flex-direction: column;
-    padding: 40px 10px 0 10px;
+    padding: 40px 10px 40px 10px;
     border-top: 1px solid #E8E8E8;
     gap: 20px;
 }
