@@ -16,6 +16,7 @@ ul {
     margin-left: auto;
 }
 
+
 @media (max-width: 1200px) {
     .container {
         width: 100%;
@@ -30,6 +31,7 @@ ul {
         width: 100%;
         justify-content: space-between;
         align-items: center;
+        margin: 0 0 0 10px;
     }
 }
 
@@ -48,7 +50,8 @@ ul {
     top: 0;
     right: 0;
     left: 0;
-    z-index: 1;
+    z-index: 10;
+    border-bottom: 1px solid #E8E8E8;
 }
 
 .head-content {
@@ -275,6 +278,9 @@ ul {
     align-items: center;
     padding: 10px;
     background: rgba(0, 0, 0, 0.6);
+    /* white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; */
 } 
 
 .attraction_name.body-bold {

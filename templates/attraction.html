@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Base</title>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://unpkg.com/ress/dist/ress.min.css"
+		/>
+		<link rel="stylesheet" type="text/css" href="../static/index.css" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../static/attraction.css"
+		/>
+		<link rel="stylesheet" type="text/css" href="../static/style.css" />
+	</head>
+	<body>
+		<header class="head fixed-top">
+			<div class="head-content">
+				<button id="title" class="h2-bold">台北一日遊</button>
+				<nav>
+					<ul class="header-nav">
+						<li>
+							<button class="body-med" type="button">
+								預定行程
+							</button>
+						</li>
+						<li>
+							<button class="body-med" type="button">
+								登入/註冊
+							</button>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<section class="container">
+			<div id="infoContainer" class="attraction-info">
+				<div id="imageContainer" class="img-attraction">
+					<div id="imageSlider" class="image-slider"></div>
+					<div class="img-button">
+						<button id="imgLeft" class="img-left"></button>
+						<button id="imgRight" class="img-right"></button>
+					</div>
+					<div id="slideDot" class="slide_dot"></div>
+				</div>
+				<div id="mainContainer" class="attraction-main">
+					<div id="mainContainerTag" class="attraction-tag body-med">
+						<p>&nbsp;at&nbsp;</p>
+					</div>
+					<div class="order">
+						<span class="order-title body-bold">訂購導覽行程</span>
+						<span class="order-info body-med"
+							>以此景點為中心的一日行程，帶您探索城市角落故事
+						</span>
+						<div class="order-date">
+							<span class="order-title body-bold"
+								>選擇日期：</span
+							>
+							<div class="order-date-block">
+								<input
+									type="date"
+									class="date-select body-med"
+								/>
+							</div>
+						</div>
+
+						<div class="order-time">
+							<span class="order-title body-bold"
+								>選擇時間：</span
+							>
+							<div class="order-time-block body-med">
+								<button
+									id="morning"
+									class="time-icon-up"
+								></button>
+								<div class="time-select">上半天</div>
+								<button
+									id="afternoon"
+									class="time-icon-down"
+								></button>
+								<div class="time-select">下半天</div>
+							</div>
+						</div>
+
+						<div class="order-price">
+							<span class="order-title body-bold"
+								>導覽費用：</span
+							>
+							<div class="order-price-block body-med">
+								<div id="guidanceFee" class="price-select">
+									新台幣 2000元
+								</div>
+							</div>
+						</div>
+
+						<button class="order-check btn-reg">
+							開始預約行程
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+		<main class="container">
+			<div id="describeContainer" class="attraction-describe">
+				<div id="attractionAddress">
+					<span class="attraction-describe-title body-bold"
+						>景點地址：</span
+					>
+				</div>
+
+				<div id="attractionTransport">
+					<span class="attraction-describe-title body-bold"
+						>交通方式</span
+					>
+				</div>
+			</div>
+		</main>
+		<footer class="footer">
+			<div class="container body-bold">COPYRIGHT © 2021 台北一日遊</div>
+		</footer>
+		<script
+			defer
+			type="text/javascript"
+			src="../static/attraction.js"
+		></script>
+	</body>
+</html>
