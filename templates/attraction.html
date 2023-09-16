@@ -39,13 +39,19 @@
 		</header>
 		<section class="container">
 			<div id="infoContainer" class="attraction-info">
-				<div id="imageContainer" class="img-attraction">
-					<div id="imageSlider" class="image-slider"></div>
-					<div class="img-button">
-						<button id="imgLeft" class="img-left"></button>
-						<button id="imgRight" class="img-right"></button>
-					</div>
-					<div id="slideDot" class="slide_dot"></div>
+				<div id="imageSlide" class="slideshow">
+					<div class="slide__item fades"></div>
+					<img
+						id="prev"
+						class="slide__arraw slide__arraw--prev"
+						src="../static/icon/img_prev.png"
+					/>
+					<img
+						id="next"
+						class="slide__arraw slide__arraw--next"
+						src="../static/icon/img_next.png"
+					/>
+					<div id="slideDot" class="slide__dot"></div>
 				</div>
 				<div id="mainContainer" class="attraction-main">
 					<div id="mainContainerTag" class="attraction-tag body-med">

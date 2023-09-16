@@ -23,6 +23,7 @@
     height: 400px;
     padding: 0 15px;
     margin: 91px 0 37px 0 ;
+    gap: 30px;
 }
 
 .img-attraction {
@@ -34,7 +35,7 @@
     border-radius: 5px;
 }
 
-@media (max-width: 1200px) {
+/* @media (max-width: 1200px) {
     .attraction-info {
         width: 100%;
         height: auto;
@@ -54,64 +55,53 @@
     .attraction-main {
         margin: 0 10px;
     }
-}
-.image-slider {
-    width: 100%;
-    height: 100%;
+} */
+
+
+.slideshow {
+    width: 540px;
+    height: 400px;
     position: relative;
     transition: 2s;
-    /* display: flex; */
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-.slide_item {
+.slide__item {
     width: 100%;
     height: 100%;
-    display: none;
-    position: relative;
 }
 
-.slide_item img{
-    flex: 0 0 auto;
+.slide__item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     vertical-align: middle;
-    transition: 0.5s;
-}
-
-.slide_item img:hover {
-    transform: scale(1.5);
-    transition: 0.5s;
 }
 
 
-.img-button {
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    top: 0px;
+.slide__arraw:hover {
+    opacity: 0.7;
+    cursor: pointer;
+    transition: 1 ease;
+}
+
+.slide__arraw--prev {
     position: absolute;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;    
-    filter: opacity(0.6);
+    top: 50%;
+    left: 10px;
+    opacity: 0.5;
+}
+
+.slide__arraw--next {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    opacity: 0.5;
 
 }
 
-.img-left {
-    background-image: url(./icon/btn_leftimg.png);
-    width: 36px;
-    height: 36px;
-}
-
-.img-right {
-    background-image: url(./icon/btn_rightimg.png);
-    width: 36px;
-    height: 36px;
-}
-.slide_dot {
+.slide__dot {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -119,6 +109,7 @@
     position: absolute;
     bottom: 10px;
 }
+
 .dot {
     background-color: #FFF;
     border-radius: 50%;
@@ -128,12 +119,10 @@
     opacity: 0.6;
 }
   
-.active, .dot:hover {
+.dot:hover, .active {
     background-color: rgba(0, 0, 0);
     border: 2px solid #FFF;
 }
-
-
 
 .fades {
     animation: 1.5s fades;

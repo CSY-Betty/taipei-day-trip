@@ -22,9 +22,7 @@ function getAttractionData() {
 
 
 function createAttractionInfo(data) {
-	const infoContainer = document.getElementById("infoContainer");
 	
-
 	const attractionData = data.data;
 	const attractionName = attractionData.name;
 	const attractionCategory = attractionData.category;
@@ -35,18 +33,19 @@ function createAttractionInfo(data) {
 	const attractionImages = attractionData.images;
 
 	// 景點圖片區塊
-	const imageSlider = document.getElementById("imageSlider");
+	const imageSlide = document.getElementById("imageSlide");
+	const firstNode = imageSlide.firstChild;
 
 	// 製作所有圖片
 	attractionImages.forEach(imageUrl => {
 		const slideItem = document.createElement("div");
-		slideItem.classList.add("slide_item", "fades")
+		slideItem.classList.add("slide__item", "fades")
 
 		const image = document.createElement("img");
 		image.src = imageUrl;
 
 		slideItem.appendChild(image);
-		imageSlider.appendChild(slideItem);
+		imageSlide.insertBefore(slideItem, firstNode);
 	});
 
 	const slideDot = document.getElementById("slideDot");
@@ -157,10 +156,10 @@ window.addEventListener("load", function() {
 
 	showSlide(slideIndex);
 
-	let prev = document.getElementById("imgLeft");
+	let prev = document.getElementById("prev");
 	prev.addEventListener("click", divideSlides, false);
 
-	let next = document.getElementById("imgRight");
+	let next = document.getElementById("next");
 	next.addEventListener("click", plusSlides, false);
 
 	const selectdot = document.querySelectorAll(".dot");
@@ -181,7 +180,7 @@ window.addEventListener("load", function() {
 	}
 
 	function showSlide(num) {
-		let slides = document.getElementsByClassName("slide_item");
+		let slides = document.getElementsByClassName("slide__item");
 		let dots = document.getElementsByClassName("dot");
 
 		if (num > slides.length) {
