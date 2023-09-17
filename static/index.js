@@ -207,3 +207,21 @@ getMRTData().then(MrtData => {
 
 // list_bar左右捲動
 listBarScroll();
+
+
+function handleAttractionClick() {
+    let attraction = document.getElementById('attractions');
+    attraction.addEventListener("click", function(event) {
+        let attractionWrapper = event.target.closest(".attraction_wrapper");
+        if (attractionWrapper)  {
+            let attractionId = attractionWrapper.getAttribute("attractionId");
+
+            const attractionLink = `/attraction/${attractionId}`
+            
+            window.location.href = attractionLink;
+        }
+    })
+}
+
+
+handleAttractionClick();

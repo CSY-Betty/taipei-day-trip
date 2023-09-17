@@ -16,7 +16,7 @@ export function createMrtList(data){
 
 // 建立attractions
 export function createAttraction(data) {
-	let container = document.getElementById("attractions");
+	const container = document.getElementById("attractions");
 	
 	const attractionData = data.data;
 	
@@ -25,11 +25,15 @@ export function createAttraction(data) {
 		let attraction_category = item.category
 		let attraction_mrt = item.mrt
 		let attraction_image = item.images[0]
+		let attraction_id = item.id;
 		
 		
 		// 創建包裝每個景點的<div>
 		let attractionContainer = document.createElement("div");
-		attractionContainer.classList.add("attraction_wrapper"); // 添加額外的class
+		attractionContainer.classList.add("attraction_wrapper");
+		attractionContainer.setAttribute("attractionId", attraction_id);
+
+		
 
 	
 		// 創建圖片元素
@@ -70,14 +74,7 @@ export function createAttraction(data) {
 		// 將圖片容器和描述容器添加到attractions_wrapper中
 		attractionContainer.appendChild(infoContainer);
 		attractionContainer.appendChild(describeContainer);
-
-		// 點擊跳轉該景點
-		attractionContainer.addEventListener("click", function() {
-			let attraction_id = item.id
-			window.location.href = `/attraction/${attraction_id}`
-		});
-
-		// 將attractions_wrapper添加到attractions中
+		
 		container.appendChild(attractionContainer);
 
 	})
