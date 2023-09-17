@@ -56,10 +56,6 @@ function createAttractionInfo(data) {
 		const dot = document.createElement("div");
 		dot.classList.add("dot");
 		slideDot.appendChild(dot);
-
-		if (dotNum > 10) {
-			dot.style.margin = "8px";
-		}
 	}
 
 	// 景點標題區塊
@@ -109,14 +105,14 @@ function createAttractionInfo(data) {
 
 
 // 預定按鈕
-let morning = document.getElementById("timeMorning");
-let afternoon = document.getElementById("timeAfternoon");
-afternoon.addEventListener("click", function() {
+const timeMorning = document.getElementById("timeMorning");
+const timeAfternoon = document.getElementById("timeAfternoon");
+timeAfternoon.addEventListener("click", function() {
 	priceFee = document.getElementById("priceFee")
 	priceFee.textContent = '新台幣 2500元';
 })
 
-morning.addEventListener("click", function() {
+timeMorning.addEventListener("click", function() {
 	priceFee = document.getElementById("priceFee")
 	priceFee.textContent = '新台幣 2000元';
 })
