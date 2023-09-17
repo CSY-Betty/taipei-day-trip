@@ -52,7 +52,7 @@
         margin: 0 auto;
     }
 
-    .attraction-main {
+    .menu {
         margin: 0 10px;
     }
 } */
@@ -137,33 +137,35 @@
 }
 
 
-/* SECTION-MAIN
+/* SECTION-MENU
 -------------------- */
 
-.attraction-main {
+.menu {
     display: flex;
     flex-direction: column;
     padding: 9px 0 ;
 }
 
-.attraction-main .h3-bold {
+.menu .h3-bold {
     color: var(--secondary-color-gray-70, #666);;
 }
 
-.attraction-tag {
+.menu__subtitle {
     display: flex;
     flex-direction: row;
     margin-top: 15px;
 }
 
-.attraction-tag.body-med {
+.menu__subtitle.body-med {
     color: var(--secondary-color-gray-70, #666);;
 }
 
 
+
+
 /* SECTION-ORDER
 -------------------- */
-.order {
+.menu__order {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -179,20 +181,28 @@
 }
 
 @media (max-width: 1200px) {
-    .order {
+    .menu__order {
         width: 100%;
     }
 }
 
+.order__title.body-bold {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.order__info.body-med {
+    color: var(--secondary-color-gray-70, #666);
+}
+
 /* SECTION-ORDER--date
 -------------------- */
-.order-date {
+.order__date {
     display: flex;
     align-items: center;
     height: 35px;
 }
 
-.order-date-block {
+.date__block {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -212,67 +222,79 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background: none;
 }
 
-.date-select {
+.date__select {
     background: url(./icon/icon_calendar.png) right / 18px 18px no-repeat;
 
+}
+
+.date__title.body-bold {
+    color: var(--secondary-color-gray-70, #666);;
 }
 
 
 /* SECTION-ORDER--time
 -------------------- */
-.order-time {
+.order__time {
     display: flex;
     align-items: center;
     height: 35px;
 }
 
-.order-time-block {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.time__title {
+    width: 81px;
 }
 
-.time-icon-up {
-    background-image: url(./icon/select-btn.png);
-    width: 22px;
-    height: 22px;
-    margin-left: 5px;
-    margin-right: 4px;
+input[type="radio"]{
+    -webkit-appearance: none; /* 隱藏預設樣式（適用於某些瀏覽器） */
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%; /* 讓 radio 按鈕成為圓形 */
+    background-color: #FFF; /* 設定未選取時的背景色 */
+    cursor: pointer;
+}
+.radio__input{
+  width: 22px;
+  height: 22px;
+  margin-right: 4px;
+  &:checked{
+    background-color: #489;
+    border: 2px solid #FFF; /* 設定選取時的邊框 */
+  }
 }
 
-.time-icon-down {
-    background-image: url(./icon/unselect-btn.png);
-    width: 22px;
-    height: 22px;
-    margin-left: 5px;
-    margin-right: 4px;
+.time__label {
+    margin-right: 13px;
+}
+
+.time__title.body-bold {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.time__label.body-med {
+    color: var(--secondary-color-gray-70, #666);
 }
 
 /* SECTION-ORDER--price
 -------------------- */
-.order-price {
+.order__price {
     display: flex;
     align-items: center;
+
     height: 35px;
 }
 
-.order-title.body-bold {
-    color: var(--secondary-color-gray-70, #666);;
-}
-
-.order-info.body-med {
+.price__title.body-bold {
     color: var(--secondary-color-gray-70, #666);
 }
 
-.order-time-block.body-med {
+.price__fee.body-med {
     color: var(--secondary-color-gray-70, #666);
 }
 
-.order-price-block.body-med {
-    color: var(--secondary-color-gray-70, #666);
-}
 
-.order-check {
+/* SECTION-ORDER--check
+-------------------- */
+.order__check {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -283,37 +305,37 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: var(--primary-color-cyan-70, #489);;
 }
 
-.order-check.btn-reg {
+.order__check.btn-reg {
     color: var(--additional-color-white, #FFF);
 }
 
 
 /* MAIN
 -------------------- */
-.attraction-describe {
+.description {
     display: flex;
     flex-direction: column;
     padding: 40px 10px 40px 10px;
     border-top: 1px solid #E8E8E8;
-    gap: 20px;
 }
 
-.attraction-describe-title {
+.description__title {
     display: flex;
     height: 32px;
     align-items: center;
+    margin-top: 20px;
 }
 
-.attraction-describe .body-bold {
+.description .body-bold {
     color: var(--secondary-color-gray-70, #666);
 }
 
-.attraction-describe .content-reg {
+.description .content-reg {
     color: var(--secondary-color-gray-70, #666);
 }
 
 @media (max-width: 1200px) {
-    .attraction-describe {
+    .description {
         margin: 0 10px 0 20px;
     }
 }

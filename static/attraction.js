@@ -63,85 +63,62 @@ function createAttractionInfo(data) {
 	}
 
 	// 景點標題區塊
-	const mainContainer = document.getElementById("mainContainer");
+	const menu = document.getElementById("menu");
 
 	const title = document.createElement("span");
 	title.textContent = attractionName;
-	title.classList.add("attraction-title", "h3-bold");
+	title.classList.add("menu__title", "h3-bold");
 
-	mainContainer.appendChild(title);
+	menu.appendChild(title);
 
 	// 將description顯示在最前面
-	mainContainer.insertBefore(title, mainContainer.firstChild);
+	menu.insertBefore(title, menu.firstChild);
 
+	const subTitle = document.createElement("span");
+	subTitle.classList.add("menu__subtitle", "body-med");
 
-	const mainContainerTag =document.getElementById("mainContainerTag");
-	const category = document.createElement("p");
-	category.textContent = attractionCategory;
-	category.classList.add("attraction-category");
+	const tagNode = document.createTextNode(`${attractionCategory} at ${attractionMrt}`);
 
-	const mrt = document.createElement("p");
-	mrt.textContent = attractionMrt;
-	mrt.classList.add("attraction-mrt");
-
-	mainContainerTag.appendChild(category);
-	mainContainerTag.insertBefore(category, mainContainerTag.firstChild);
-	mainContainerTag.appendChild(mrt);
-
+	subTitle.appendChild(tagNode);
+	menu.insertBefore(subTitle, title.nextSibling);
+	
 
 	// 景點描述區塊
-	const describeContainer = document.getElementById("describeContainer");
+	const description = document.getElementById("description");
 
-	const description = document.createElement("span");
-	description.textContent = attractionDescript;
-	description.classList.add("attraction-describe-infor", "content-reg")
+	const introduce = document.createElement("span");
+	introduce.textContent = attractionDescript;
+	introduce.classList.add("description__introduce", "content-reg")
 
-	describeContainer.appendChild(description);
+	description.insertBefore(introduce, description.firstChild);
 
-
-	const addressContainer = document.getElementById("attractionAddress");
 
 	const address = document.createElement("span");
 	address.textContent = attractionAddress;
-	address.classList.add("attraction-describe-address", "content-reg")
+	address.classList.add("description__address", "content-reg")
 
-	addressContainer.appendChild(address);
-
-	const attractionTransport = document.getElementById("attractionTransport");
+	description.insertBefore(address, description.childNodes[3]);
 
 	const transport = document.createElement("span");
 	transport.textContent = attractionTrans;
-	transport.classList.add("attraction-describe-trans", "content-reg")
+	transport.classList.add("description__transport", "content-reg")
 
-	attractionTransport.appendChild(transport);
-
-	// 將description顯示在最前面
-	describeContainer.insertBefore(description, describeContainer.firstChild);
+	description.insertBefore(transport, description.childNodes[6]);
 }
 
+
+
 // 預定按鈕
-let morning = document.getElementById("morning");
-let afternoon = document.getElementById("afternoon");
+let morning = document.getElementById("timeMorning");
+let afternoon = document.getElementById("timeAfternoon");
 afternoon.addEventListener("click", function() {
-	iconUp = document.querySelector(".time-icon-up");
-	iconDown = document.querySelector(".time-icon-down");
-
-	iconUp.style.backgroundImage = "url(../static/icon/unselect-btn.png)";
-	iconDown.style.backgroundImage = "url(../static//icon/select-btn.png)";
-
-	guidanceFee = document.getElementById("guidanceFee")
-	guidanceFee.textContent = '新台幣 2500元';
+	priceFee = document.getElementById("priceFee")
+	priceFee.textContent = '新台幣 2500元';
 })
 
 morning.addEventListener("click", function() {
-	iconUp = document.querySelector(".time-icon-up");
-	iconDown = document.querySelector(".time-icon-down");
-
-	iconUp.style.backgroundImage = "url(../static/icon/select-btn.png)";
-	iconDown.style.backgroundImage = "url(../static//icon/unselect-btn.png)";
-
-	guidanceFee = document.getElementById("guidanceFee")
-	guidanceFee.textContent = '新台幣 2000元';
+	priceFee = document.getElementById("priceFee")
+	priceFee.textContent = '新台幣 2000元';
 })
 
 document.addEventListener("DOMContentLoaded", function() {
