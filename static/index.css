@@ -1,82 +1,6 @@
 @charset "UTF-8";
 
-/* 共通部分
--------------------- */
-html {
-    font-size: 16px;
-}
 
-ul {
-    list-style-type: none;
-}
-
-.container {
-    width: 1200px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-
-@media (max-width: 1200px) {
-    .container {
-        width: 100%;
-        margin-right: auto;
-        margin-left: auto;
-    }
-}
-
-@media (max-width: 1200px) {
-    .head-content {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0 0 0 10px;
-    }
-}
-
-/* HEADER
--------------------- */
-.head {
-    display: flex;
-    height: 54px;
-    margin: 0 auto;
-    justify-content: center;
-    background-color: #FFF;
-}
-
-.fixed-top {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 10;
-    border-bottom: 1px solid #E8E8E8;
-}
-
-.head-content {
-    display: flex;
-    width: 1200px;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-.head-content .h2-bold {
-    color: var(--primary-color-cyan-70, #489);
-}
-
-.header-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-nav .body-med {
-    padding: 10px;
-    color: var(--secondary-color-gray-70, #666);;
-}
 
 
 /* SECTION
@@ -312,20 +236,3 @@ ul {
     color: var(--secondary-color-gray-50, #757575);
 }
 
-
-/* FOOTER
--------------------- */
-.footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 104px;
-    background-color: #757575;
-    margin: 40px 0 0 0;
-}
-
-
-.footer .body-bold {
-    color: var(--additional-color-white, #FFF);
-}
