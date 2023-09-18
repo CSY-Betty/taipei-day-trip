@@ -38,14 +38,10 @@ function createAttractionInfo(data) {
 
 	// 製作所有圖片
 	attractionImages.forEach(imageUrl => {
-		const slideItem = document.createElement("div");
-		slideItem.classList.add("slide__item", "fades")
-
 		const image = document.createElement("img");
+		image.classList.add("slide__item", "fades")
 		image.src = imageUrl;
-
-		slideItem.appendChild(image);
-		imageSlide.insertBefore(slideItem, firstNode);
+		imageSlide.insertBefore(image, firstNode);
 	});
 
 	const slideDot = document.getElementById("slideDot");
