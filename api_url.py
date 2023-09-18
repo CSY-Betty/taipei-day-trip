@@ -1,6 +1,7 @@
 from flask import *
 import json
 from dbcrud import *
+import jwt
 
 
 apibp = Blueprint("api_route", __name__)
@@ -88,3 +89,18 @@ def get_mrts():
             500,
             {"Content-Type": "application/json; charset=utf-8"},
         )
+
+
+@apibp.route("/user", METHOD="POST")
+def register():
+    pass
+
+
+@apibp.route("/user/auth")
+def signin():
+    pass
+
+
+@apibp.route("/user/auth")
+def auth():
+    pass
