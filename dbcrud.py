@@ -52,3 +52,31 @@ def get_mrts_attractions():
     results = execute_sql_all(sql)
     mrt_list = [result["mrt"] for result in results]
     return mrt_list
+
+
+def signup_to_db(data):
+    name = data["name"]
+    email = data["email"]
+    password = data["password"]
+
+    try:
+        sql = "SELECT email FROM users WHERE email = %s"
+        existing_user = execute_sql_one(sql, email)
+
+        if existing_user:
+            return 400
+
+        else:
+            with pool.get_connection() as pooling:
+                with pooling.cursor() as cursor:
+                    add_user = (
+                        "INSERT INTO users(name, email, password) VALUES(%s, %s, %s)"
+                    )
+                    values = (name, email, password)
+                    cursor.execute(add_user, values)
+                pooling.commit()
+
+            return 200
+
+    except:
+        return 500

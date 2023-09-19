@@ -84,6 +84,7 @@ ul {
     position: absolute;
     width: 310px;
     height: 47px;
+    padding: 15px;
     top: 67px;
     left: 50%;
     transform: translate(-50%);
@@ -95,6 +96,7 @@ ul {
     position: absolute;
     width: 310px;
     height: 47px;
+    padding: 15px;
     top: 124px;
     left: 50%;
     transform: translate(-50%);
@@ -124,6 +126,10 @@ ul {
     bottom: 15px;
     left: 50%;
     transform: translate(-50%);
+}
+
+.login__regist.body-med {
+    color: var(--secondary-color-gray-70, #666);
 }
 
 
@@ -174,6 +180,7 @@ ul {
     position: absolute;
     width: 310px;
     height: 47px;
+    padding: 15px;
     top: 67px;
     left: 50%;
     transform: translate(-50%);
@@ -185,6 +192,7 @@ ul {
     position: absolute;
     width: 310px;
     height: 47px;
+    padding: 15px;
     top: 124px;
     left: 50%;
     transform: translate(-50%);
@@ -196,6 +204,7 @@ ul {
     position: absolute;
     width: 310px;
     height: 47px;
+    padding: 15px;
     top: 181px;
     left: 50%;
     transform: translate(-50%);
@@ -207,7 +216,7 @@ ul {
     position: absolute;
     width: 310px;
     height: 47px;
-    bottom: 47px;
+    top: 238px;
     left: 50%;
     transform: translate(-50%);
     border-radius: 5px;
@@ -218,6 +227,19 @@ ul {
     color: var(--additional-color-white, #FFF);
 }
 
+.regist_message {
+    display: none;
+    position: absolute;
+    width: 310px;
+    height: 22px;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+    color: red;
+    transition: 0.5s ease;
+}
+
 .regist__login {
     position: absolute;
     width: 310px;
@@ -225,6 +247,10 @@ ul {
     bottom: 15px;
     left: 50%;
     transform: translate(-50%);
+}
+
+.regist__login.body-med {
+    color: var(--secondary-color-gray-70, #666);
 }
 
 
@@ -251,9 +277,14 @@ ul {
     align-items: center;
 }
 
-.header-nav .body-med {
+.header__scheduled {
     padding: 10px;
-    color: var(--secondary-color-gray-70, #666);;
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.header__signin {
+    padding: 10px;
+    color: var(--secondary-color-gray-70, #666);
 }
 
 /* CONTAINER
