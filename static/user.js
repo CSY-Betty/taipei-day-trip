@@ -53,6 +53,7 @@ loginButton.addEventListener("click", function() {
             const token = response.headers.get("Authorization");
             localStorage.setItem("token", token);
             loginDialog.close();
+            location.reload();
         }
         else if (response.status === 400 ) {
             loginDialog.style.height = "307px";
@@ -64,6 +65,8 @@ loginButton.addEventListener("click", function() {
         console.log("發生錯誤: ", error);
     });
 })
+
+
 
 
 // 處理-註冊驗證
@@ -78,29 +81,42 @@ registButton.addEventListener("click", function() {
     const email = registEmail.value;
     const password = registPassword.value;
 
-    const signup = {
-        name : name,
-        email : email,
-        password : password
-    };
+    const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
-    fetch(`/api/user`, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(signup)})
-    .then(response => {
-        if (response.status === 200) {
-            registDialog.style.height = "369px";
-            registMessage.style.display = "block";
-            // registMessage.style.bottom = "47px";
-            registMessage.innerHTML = "註冊成功，請登入系統";
-            registMessage.style.color = "green";
-        }
-        else if (response.status === 400) {
-            registDialog.style.height = "369px";
-            registMessage.style.display = "block";
-            // registMessage.style.bottom = "47px";
-            registMessage.innerHTML = "Email 已經註冊用戶";
-        }
-    })
-    .catch (error => {
-        console.log("發生錯誤: ", error);
-    })
+    if(!emailRule.test(email)) {
+        registDialog.style.height = "369px";
+        registMessage.style.display = "block";
+        registMessage.innerHTML = "Email 錯誤，請重新輸入";
+    }
+    else if (name.trim() === "" || password.trim() === "") {
+        registDialog.style.height = "369px";
+        registMessage.style.display = "block";
+        registMessage.innerHTML = "請輸入姓名或密碼";
+    }
+    else {
+        const signup = {
+            name : name,
+            email : email,
+            password : password
+        };
+    
+        fetch(`/api/user`, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(signup)})
+        .then(response => {
+            if (response.status === 200) {
+                registDialog.style.height = "369px";
+                registMessage.style.display = "block";
+                registMessage.innerHTML = "註冊成功，請登入系統";
+                registMessage.style.color = "green";
+            }
+            else if (response.status === 400) {
+                registDialog.style.height = "369px";
+                registMessage.style.display = "block";
+                registMessage.innerHTML = "Email 已經註冊用戶";
+            }
+        })
+        .catch (error => {
+            console.log("發生錯誤: ", error);
+        })
+    }
+    
 })

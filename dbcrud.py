@@ -98,3 +98,21 @@ def signin_to_db(data):
 
     except:
         return 500
+
+
+def auth_to_db(data):
+    email = data["email"]
+    password = data["password"]
+
+    try:
+        sql = "SELECT id, name, email FROM users WHERE email = %s AND password = %s"
+        existing_user = execute_sql_one(sql, email, password)
+
+        if existing_user:
+            return 200, existing_user
+
+        else:
+            return None
+
+    except:
+        return 500

@@ -172,3 +172,28 @@ window.addEventListener("load", function() {
 	}
 });
 
+
+let logoutButton = document.getElementById("logoutButton");
+const token = localStorage.getItem("token");
+
+if (token) {
+    fetch(`/api/user/auth`, {method: "GET", headers: {"Content-Type": "application/json", "Authorization": `Bearer ${token}`}})
+    .then(response => {
+        if (response.status === 200) {
+                loginRegisterButton.style.display = "none";
+                logoutButton.style.display = "block";
+            }
+        else {
+            loginRegisterButton.style.display = "block";
+                logoutButton.style.display = "none";
+        }}
+    )
+    .catch(error => {
+        console.error("Error:", error);
+    })
+}
+
+logoutButton.addEventListener("click", function() {
+	localStorage.removeItem("token");
+	location.reload()
+})

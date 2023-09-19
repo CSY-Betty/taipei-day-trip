@@ -133,8 +133,12 @@ def signin():
 
     if result == 200:
         encoded_jwt = jwt.encode(
-            {"email": data["email"], "exp": datetime.utcnow() + timedelta(minutes=1)},
-            data["password"],
+            {
+                "email": data["email"],
+                "password": data["password"],
+                "exp": datetime.utcnow() + timedelta(minutes=1),
+            },
+            "key123",
             algorithm="HS256",
         )
         success_message = {"token": encoded_jwt}
@@ -167,6 +171,25 @@ def signin():
         )
 
 
-@apibp.route("/user/auth")
+@apibp.route("/user/auth", methods=["GET"])
 def auth():
-    pass
+    auth_header = request.headers.get("Authorization")
+    token = auth_header.replace("Bearer ", "")
+
+    try:
+        decoded_jwt = jwt.decode(token, "key123", algorithms="HS256")
+        result = auth_to_db(decoded_jwt)
+        success_message = {
+            "data": {
+                "id": result[1]["id"],
+                "name": result[1]["name"],
+                "email": result[1]["email"],
+            }
+        }
+        return (
+            jsonify(success_message),
+            200,
+            {"Content-Type": "application/json; charset=utf-8"},
+        )
+    except jwt.ExpiredSignatureError:
+        return ({"message": "Signature has expired."}, 401)

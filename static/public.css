@@ -300,6 +300,12 @@ ul {
     color: var(--secondary-color-gray-70, #666);
 }
 
+.header__logout {
+    display: none;
+    padding: 10px;
+    color: var(--secondary-color-gray-70, #666);
+}
+
 /* CONTAINER
 -------------------- */
 
