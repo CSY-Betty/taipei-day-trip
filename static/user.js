@@ -42,28 +42,36 @@ loginButton.addEventListener("click", function() {
     const email = loginEmail.value;
     const password = loginPassword.value;
 
-    const login = {
-        email: email,
-        password: password
+    if (email.trim() === "" || password.trim() === "") {
+        loginDialog.style.height = "307px";
+        loginError.style.display = "block";
+        loginError.innerHTML = "請輸入電子郵件或密碼";
     }
 
-    fetch(`/api/user/auth`, {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(login)})
-    .then(response => {
-        if (response.status === 200) {
-            const token = response.headers.get("Authorization");
-            localStorage.setItem("token", token);
-            loginDialog.close();
-            location.reload();
+    else {
+        const login = {
+            email: email,
+            password: password
         }
-        else if (response.status === 400 ) {
-            loginDialog.style.height = "307px";
-            loginError.style.display = "block";
-            loginError.innerHTML = "電子郵件或密碼錯誤"
-        }
-    })
-    .catch (error => {
-        console.log("發生錯誤: ", error);
-    });
+    
+        fetch(`/api/user/auth`, {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(login)})
+        .then(response => {
+            if (response.status === 200) {
+                const token = response.headers.get("Authorization");
+                localStorage.setItem("token", token);
+                loginDialog.close();
+                location.reload();
+            }
+            else if (response.status === 400 ) {
+                loginDialog.style.height = "307px";
+                loginError.style.display = "block";
+                loginError.innerHTML = "電子郵件或密碼錯誤"
+            }
+        })
+        .catch (error => {
+            console.log("發生錯誤: ", error);
+        });
+    }
 })
 
 
