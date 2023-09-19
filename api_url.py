@@ -136,7 +136,7 @@ def signin():
             {
                 "email": data["email"],
                 "password": data["password"],
-                "exp": datetime.utcnow() + timedelta(minutes=1),
+                "exp": datetime.utcnow() + timedelta(days=7),
             },
             "key123",
             algorithm="HS256",
