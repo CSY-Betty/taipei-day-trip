@@ -108,7 +108,7 @@ ul {
     position: absolute;
     width: 310px;
     height: 47px;
-    bottom: 47px;
+    top: 181px;
     left: 50%;
     transform: translate(-50%);
     border-radius: 5px;
@@ -117,6 +117,19 @@ ul {
 
 .login__button.btn-reg {
     color: var(--additional-color-white, #FFF);
+}
+
+.login_error {
+    display: none;
+    position: absolute;
+    width: 310px;
+    height: 22px;
+    top: 238px;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+    color: red;
+    transition: 0.5s ease;
 }
 
 .login__regist {
@@ -232,7 +245,7 @@ ul {
     position: absolute;
     width: 310px;
     height: 22px;
-    bottom: 15px;
+    bottom: 47px;
     left: 50%;
     transform: translate(-50%);
     text-align: center;

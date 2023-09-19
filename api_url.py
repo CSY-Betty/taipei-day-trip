@@ -2,6 +2,7 @@ from flask import *
 import json
 from dbcrud import *
 import jwt
+from datetime import datetime, timedelta
 
 
 apibp = Blueprint("api_route", __name__)
@@ -127,7 +128,43 @@ def signup():
 
 @apibp.route("/user/auth", methods=["PUT"])
 def signin():
-    pass
+    data = request.get_json()
+    result = signin_to_db(data)
+
+    if result == 200:
+        encoded_jwt = jwt.encode(
+            {"email": data["email"], "exp": datetime.utcnow() + timedelta(minutes=1)},
+            data["password"],
+            algorithm="HS256",
+        )
+        success_message = {"token": encoded_jwt}
+
+        response = make_response(jsonify(success_message), 200)
+        response.headers["Authorization"] = encoded_jwt
+        response.headers["Content-Type"] = "application/json; charset=utf-8"
+
+        return response
+
+    elif result == 400:
+        error_message = "登入失敗，帳號或密碼錯誤"
+        json_string = json.dumps(
+            {"error": True, "message": error_message}, ensure_ascii=False
+        )
+        return (
+            json_string,
+            400,
+            {"Content-Type": "application/json; charset=utf-8"},
+        )
+    else:
+        error_message = "伺服器內部錯誤"
+        json_string = json.dumps(
+            {"error": True, "message": error_message}, ensure_ascii=False
+        )
+        return (
+            jsonify(error_message),
+            500,
+            {"Content-Type": "application/json; charset=utf-8"},
+        )
 
 
 @apibp.route("/user/auth")

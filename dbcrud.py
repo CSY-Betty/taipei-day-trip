@@ -80,3 +80,21 @@ def signup_to_db(data):
 
     except:
         return 500
+
+
+def signin_to_db(data):
+    email = data["email"]
+    password = data["password"]
+
+    try:
+        sql = "SELECT email, password FROM users WHERE email = %s AND password = %s"
+        existing_user = execute_sql_one(sql, email, password)
+
+        if existing_user:
+            return 200
+
+        else:
+            return 400
+
+    except:
+        return 500
