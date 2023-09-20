@@ -9,6 +9,7 @@
 			type="text/css"
 			href="https://unpkg.com/ress/dist/ress.min.css"
 		/>
+		<link rel="stylesheet" type="text/css" href="../static/public.css" />
 		<link rel="stylesheet" type="text/css" href="../static/index.css" />
 		<link rel="stylesheet" type="text/css" href="../static/style.css" />
 	</head>
@@ -19,14 +20,105 @@
 				<nav>
 					<ul class="header-nav">
 						<li>
-							<button class="body-med" type="button">
+							<button
+								class="header__scheduled body-med"
+								type="button"
+							>
 								預定行程
 							</button>
 						</li>
 						<li>
-							<button class="body-med" type="button">
+							<button
+								id="loginRegisterButton"
+								class="header__signin body-med"
+								type="button"
+							>
 								登入/註冊
 							</button>
+							<buttom
+								id="logoutButton"
+								class="header__logout body-med"
+								type="button"
+								>登出系統</buttom
+							>
+							<dialog id="loginDialog" class="nav__login">
+								<div class="login__bar"></div>
+								<span class="login__title h3-bold"
+									>登入會員帳號</span
+								>
+								<button id="loginClose" class="login__close">
+									<img src="../static/icon/icon_close.png" />
+								</button>
+								<input
+									id="loginEmail"
+									class="login__eamil body-med"
+									placeholder="輸入電子信箱"
+								/>
+								<input
+									id="loginPassword"
+									class="login__password body-med"
+									type="password"
+									placeholder="輸入密碼"
+								/>
+								<button
+									id="loginButton"
+									class="login__button btn-reg"
+								>
+									登入帳戶
+								</button>
+								<span
+									id="loginError"
+									class="login_error"
+								></span>
+								<button
+									id="loginRegist"
+									class="login__regist body-med"
+								>
+									還沒有帳戶？點此註冊
+								</button>
+							</dialog>
+
+							<dialog id="registDialog" class="nav__regist">
+								<div class="regist__bar"></div>
+								<span class="regist__title h3-bold"
+									>註冊會員帳號</span
+								>
+								<button id="registClose" class="regist__close">
+									<img src="../static/icon/icon_close.png" />
+								</button>
+								<input
+									id="registName"
+									class="regist__name body-med"
+									placeholder="輸入姓名"
+								/>
+								<input
+									id="registEmail"
+									class="regist__eamil body-med"
+									placeholder="輸入電子郵件"
+								/>
+								<input
+									id="registPassword"
+									class="regist__password body-med"
+									type="password"
+									placeholder="輸入密碼"
+								/>
+								<button
+									id="registButton"
+									class="regist__button btn-reg"
+								>
+									註冊新帳戶
+								</button>
+								<span
+									id="registMessage"
+									class="regist_message body-med"
+								></span>
+								<button
+									id="registLogin"
+									class="regist__login body-med"
+								>
+									已經有帳戶了？點此登入
+								</button>
+							</dialog>
 						</li>
 					</ul>
 				</nav>
@@ -66,5 +158,6 @@
 			<div class="container body-bold">COPYRIGHT © 2021 台北一日遊</div>
 		</footer>
 		<script defer type="module" src="../static/index.js"></script>
+		<script defer type="module" src="../static/user.js"></script>
 	</body>
 </html>

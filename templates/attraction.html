@@ -9,7 +9,7 @@
 			type="text/css"
 			href="https://unpkg.com/ress/dist/ress.min.css"
 		/>
-		<link rel="stylesheet" type="text/css" href="../static/index.css" />
+		<link rel="stylesheet" type="text/css" href="../static/public.css" />
 		<link
 			rel="stylesheet"
 			type="text/css"
@@ -24,14 +24,109 @@
 				<nav>
 					<ul class="header-nav">
 						<li>
-							<button class="body-med" type="button">
+							<button
+								class="header__scheduled body-med"
+								type="button"
+							>
 								預定行程
 							</button>
 						</li>
 						<li>
-							<button class="body-med" type="button">
+							<button
+								id="loginRegisterButton"
+								class="header__signin body-med"
+								type="button"
+							>
 								登入/註冊
 							</button>
+							<buttom
+								id="logoutButton"
+								class="header__logout body-med"
+								type="button"
+								>登出系統</buttom
+							>
+							<dialog id="loginDialog" class="nav__login">
+								<div class="login__bar"></div>
+								<span class="login__title h3-bold"
+									>登入會員帳號</span
+								>
+								<button id="loginClose" class="login__close">
+									<img src="../static/icon/icon_close.png" />
+								</button>
+								<input
+									id="loginEmail"
+									class="login__eamil body-med"
+									placeholder="輸入電子信箱"
+								/>
+								<input
+									id="loginPassword"
+									class="login__password body-med"
+									type="password"
+									placeholder="輸入密碼"
+								/>
+								<button
+									id="loginButton"
+									class="login__button btn-reg"
+								>
+									登入帳戶
+								</button>
+								<span
+									id="loginError"
+									class="login_error"
+								></span>
+								<button
+									id="loginRegist"
+									class="login__regist body-med"
+								>
+									還沒有帳戶？點此註冊
+								</button>
+							</dialog>
+
+							<dialog id="registDialog" class="nav__regist">
+								<div class="regist__bar"></div>
+								<span class="regist__title h3-bold"
+									>註冊會員帳號</span
+								>
+								<button id="registClose" class="regist__close">
+									<img src="../static/icon/icon_close.png" />
+								</button>
+								<input
+									id="registName"
+									class="regist__name body-med"
+									placeholder="輸入姓名"
+									required
+								/>
+								<input
+									id="registEmail"
+									class="regist__eamil body-med"
+									type="email"
+									placeholder="輸入電子郵件"
+									required
+								/>
+								<input
+									id="registPassword"
+									class="regist__password body-med"
+									type="password"
+									placeholder="輸入密碼"
+									required
+								/>
+								<button
+									id="registButton"
+									class="regist__button btn-reg"
+								>
+									註冊新帳戶
+								</button>
+								<span
+									id="registMessage"
+									class="regist_message body-med"
+								></span>
+								<button
+									id="registLogin"
+									class="regist__login body-med"
+								>
+									已經有帳戶了？點此登入
+								</button>
+							</dialog>
 						</li>
 					</ul>
 				</nav>
@@ -39,65 +134,78 @@
 		</header>
 		<section class="container">
 			<div id="infoContainer" class="attraction-info">
-				<div id="imageContainer" class="img-attraction">
-					<div id="imageSlider" class="image-slider"></div>
-					<div class="img-button">
-						<button id="imgLeft" class="img-left"></button>
-						<button id="imgRight" class="img-right"></button>
-					</div>
-					<div id="slideDot" class="slide_dot"></div>
+				<div id="imageSlide" class="slideshow">
+					<img
+						id="prev"
+						class="slide__arraw slide__arraw--prev"
+						src="../static/icon/img_prev.png"
+					/>
+					<img
+						id="next"
+						class="slide__arraw slide__arraw--next"
+						src="../static/icon/img_next.png"
+					/>
+					<div id="slideDot" class="slide__dot"></div>
 				</div>
-				<div id="mainContainer" class="attraction-main">
-					<div id="mainContainerTag" class="attraction-tag body-med">
-						<p>&nbsp;at&nbsp;</p>
-					</div>
-					<div class="order">
-						<span class="order-title body-bold">訂購導覽行程</span>
-						<span class="order-info body-med"
+				<div id="menu" class="menu">
+					<div class="menu__order">
+						<span class="order__title body-bold">訂購導覽行程</span>
+						<span class="order__info body-med"
 							>以此景點為中心的一日行程，帶您探索城市角落故事
 						</span>
-						<div class="order-date">
-							<span class="order-title body-bold"
+						<div class="order__date">
+							<span class="date__title body-bold"
 								>選擇日期：</span
 							>
-							<div class="order-date-block">
+							<div class="date__block">
 								<input
 									type="date"
-									class="date-select body-med"
+									class="date__select body-med"
 								/>
 							</div>
 						</div>
 
-						<div class="order-time">
-							<span class="order-title body-bold"
+						<div class="order__time">
+							<span class="time__title body-bold"
 								>選擇時間：</span
 							>
-							<div class="order-time-block body-med">
-								<button
-									id="morning"
-									class="time-icon-up"
-								></button>
-								<div class="time-select">上半天</div>
-								<button
-									id="afternoon"
-									class="time-icon-down"
-								></button>
-								<div class="time-select">下半天</div>
-							</div>
+							<input
+								type="radio"
+								id="timeMorning"
+								class="time__morning radio__input"
+								name="time__select"
+								value="上半天"
+								checked
+							/>
+							<label
+								for="timeMorning"
+								class="time__label body-med"
+								>上半天</label
+							>
+							<input
+								type="radio"
+								id="timeAfternoon"
+								class="time__afternoon radio__input"
+								name="time__select"
+								value="下半天"
+							/>
+							<label
+								for="timeAfternoon"
+								class="time__label body-med"
+								>下半天</label
+							>
 						</div>
 
-						<div class="order-price">
-							<span class="order-title body-bold"
+						<div class="order__price">
+							<span class="price__title body-bold"
 								>導覽費用：</span
 							>
-							<div class="order-price-block body-med">
-								<div id="guidanceFee" class="price-select">
-									新台幣 2000元
-								</div>
-							</div>
+							<span id="priceFee" class="price__fee body-med">
+								新台幣 2000元
+							</span>
 						</div>
 
-						<button class="order-check btn-reg">
+						<button class="order__check btn-reg">
 							開始預約行程
 						</button>
 					</div>
@@ -105,18 +213,9 @@
 			</div>
 		</section>
 		<main class="container">
-			<div id="describeContainer" class="attraction-describe">
-				<div id="attractionAddress">
-					<span class="attraction-describe-title body-bold"
-						>景點地址：</span
-					>
-				</div>
-
-				<div id="attractionTransport">
-					<span class="attraction-describe-title body-bold"
-						>交通方式</span
-					>
-				</div>
+			<div id="description" class="description">
+				<span class="description__title body-bold">景點地址：</span>
+				<span class="description__title body-bold">交通方式</span>
 			</div>
 		</main>
 		<footer class="footer">
@@ -127,5 +226,6 @@
 			type="text/javascript"
 			src="../static/attraction.js"
 		></script>
+		<script defer type="module" src="../static/user.js"></script>
 	</body>
 </html>

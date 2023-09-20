@@ -22,9 +22,7 @@ function getAttractionData() {
 
 
 function createAttractionInfo(data) {
-	const infoContainer = document.getElementById("infoContainer");
 	
-
 	const attractionData = data.data;
 	const attractionName = attractionData.name;
 	const attractionCategory = attractionData.category;
@@ -35,18 +33,15 @@ function createAttractionInfo(data) {
 	const attractionImages = attractionData.images;
 
 	// 景點圖片區塊
-	const imageSlider = document.getElementById("imageSlider");
+	const imageSlide = document.getElementById("imageSlide");
+	const firstNode = imageSlide.firstChild;
 
 	// 製作所有圖片
 	attractionImages.forEach(imageUrl => {
-		const slideItem = document.createElement("div");
-		slideItem.classList.add("slide_item", "fades")
-
 		const image = document.createElement("img");
+		image.classList.add("slide__item", "fades")
 		image.src = imageUrl;
-
-		slideItem.appendChild(image);
-		imageSlider.appendChild(slideItem);
+		imageSlide.insertBefore(image, firstNode);
 	});
 
 	const slideDot = document.getElementById("slideDot");
@@ -57,151 +52,145 @@ function createAttractionInfo(data) {
 		const dot = document.createElement("div");
 		dot.classList.add("dot");
 		slideDot.appendChild(dot);
-
-		if (dotNum > 10) {
-			dot.style.margin = "8px";
-		}
 	}
 
 	// 景點標題區塊
-	const mainContainer = document.getElementById("mainContainer");
+	const menu = document.getElementById("menu");
 
 	const title = document.createElement("span");
 	title.textContent = attractionName;
-	title.classList.add("attraction-title", "h3-bold");
+	title.classList.add("menu__title", "h3-bold");
 
-	mainContainer.appendChild(title);
+	menu.appendChild(title);
 
 	// 將description顯示在最前面
-	mainContainer.insertBefore(title, mainContainer.firstChild);
+	menu.insertBefore(title, menu.firstChild);
 
+	const subTitle = document.createElement("span");
+	subTitle.classList.add("menu__subtitle", "body-med");
 
-	const mainContainerTag =document.getElementById("mainContainerTag");
-	const category = document.createElement("p");
-	category.textContent = attractionCategory;
-	category.classList.add("attraction-category");
+	const tagNode = document.createTextNode(`${attractionCategory} at ${attractionMrt}`);
 
-	const mrt = document.createElement("p");
-	mrt.textContent = attractionMrt;
-	mrt.classList.add("attraction-mrt");
-
-	mainContainerTag.appendChild(category);
-	mainContainerTag.insertBefore(category, mainContainerTag.firstChild);
-	mainContainerTag.appendChild(mrt);
-
+	subTitle.appendChild(tagNode);
+	menu.insertBefore(subTitle, title.nextSibling);
+	
 
 	// 景點描述區塊
-	const describeContainer = document.getElementById("describeContainer");
+	const description = document.getElementById("description");
 
-	const description = document.createElement("span");
-	description.textContent = attractionDescript;
-	description.classList.add("attraction-describe-infor", "content-reg")
+	const introduce = document.createElement("span");
+	introduce.textContent = attractionDescript;
+	introduce.classList.add("description__introduce", "content-reg")
 
-	describeContainer.appendChild(description);
+	description.insertBefore(introduce, description.firstChild);
 
-
-	const addressContainer = document.getElementById("attractionAddress");
 
 	const address = document.createElement("span");
 	address.textContent = attractionAddress;
-	address.classList.add("attraction-describe-address", "content-reg")
+	address.classList.add("description__address", "content-reg")
 
-	addressContainer.appendChild(address);
-
-	const attractionTransport = document.getElementById("attractionTransport");
+	description.insertBefore(address, description.childNodes[3]);
 
 	const transport = document.createElement("span");
 	transport.textContent = attractionTrans;
-	transport.classList.add("attraction-describe-trans", "content-reg")
+	transport.classList.add("description__transport", "content-reg")
 
-	attractionTransport.appendChild(transport);
-
-	// 將description顯示在最前面
-	describeContainer.insertBefore(description, describeContainer.firstChild);
+	description.insertBefore(transport, description.childNodes[6]);
 }
 
+
+
 // 預定按鈕
-let morning = document.getElementById("morning");
-let afternoon = document.getElementById("afternoon");
-afternoon.addEventListener("click", function() {
-	iconUp = document.querySelector(".time-icon-up");
-	iconDown = document.querySelector(".time-icon-down");
-
-	iconUp.style.backgroundImage = "url(../static/icon/unselect-btn.png)";
-	iconDown.style.backgroundImage = "url(../static//icon/select-btn.png)";
-
-	guidanceFee = document.getElementById("guidanceFee")
-	guidanceFee.textContent = '新台幣 2500元';
+const timeMorning = document.getElementById("timeMorning");
+const timeAfternoon = document.getElementById("timeAfternoon");
+timeAfternoon.addEventListener("click", function() {
+	priceFee = document.getElementById("priceFee")
+	priceFee.textContent = '新台幣 2500元';
 })
 
-morning.addEventListener("click", function() {
-	iconUp = document.querySelector(".time-icon-up");
-	iconDown = document.querySelector(".time-icon-down");
-
-	iconUp.style.backgroundImage = "url(../static/icon/select-btn.png)";
-	iconDown.style.backgroundImage = "url(../static//icon/unselect-btn.png)";
-
-	guidanceFee = document.getElementById("guidanceFee")
-	guidanceFee.textContent = '新台幣 2000元';
+timeMorning.addEventListener("click", function() {
+	priceFee = document.getElementById("priceFee")
+	priceFee.textContent = '新台幣 2000元';
 })
 
 document.addEventListener("DOMContentLoaded", function() {
     getAttractionData().then(attractionData => {
         createAttractionInfo(attractionData);
-    });
+
+		let slideIndex = 1;
+
+		showSlide(slideIndex);
+
+		let prev = document.getElementById("prev");
+		prev.addEventListener("click", divideSlides, false);
+
+		let next = document.getElementById("next");
+		next.addEventListener("click", plusSlides, false);
+
+		const selectdot = document.querySelectorAll(".dot");
+		for (let i = 0; i <selectdot.length; i++) {
+			selectdot[i].addEventListener("click", function(e) {
+				showSlide((slideIndex = i + 1));
+
+			});
+		}
+
+		function plusSlides() {
+			showSlide((slideIndex += 1));
+		}
+
+
+		function divideSlides() {
+			showSlide((slideIndex -= 1));
+		}
+
+		function showSlide(num) {
+			let slides = document.getElementsByClassName("slide__item");
+			let dots = document.getElementsByClassName("dot");
+			
+			if (num > slides.length) {
+				slideIndex = 1;
+			}
+
+			if (num < 1) {
+				slideIndex =slides.length;
+			}
+
+			for (let i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+
+			for (let i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace("active", "")
+			}
+			slides[slideIndex - 1].style.display = "block";
+			dots[slideIndex - 1].className += " active";
+		}
+	});
 });
 
 
-window.addEventListener("load", function() {
-	let slideIndex = 1;
+let logoutButton = document.getElementById("logoutButton");
+const token = localStorage.getItem("token");
 
-	showSlide(slideIndex);
+if (token) {
+    fetch(`/api/user/auth`, {method: "GET", headers: {"Content-Type": "application/json", "Authorization": `Bearer ${token}`}})
+    .then(response => {
+        if (response.status === 200) {
+                loginRegisterButton.style.display = "none";
+                logoutButton.style.display = "block";
+            }
+        else {
+            loginRegisterButton.style.display = "block";
+                logoutButton.style.display = "none";
+        }}
+    )
+    .catch(error => {
+        console.error("Error:", error);
+    })
+}
 
-	let prev = document.getElementById("imgLeft");
-	prev.addEventListener("click", divideSlides, false);
-
-	let next = document.getElementById("imgRight");
-	next.addEventListener("click", plusSlides, false);
-
-	const selectdot = document.querySelectorAll(".dot");
-	for (let i = 0; i <selectdot.length; i++) {
-		selectdot[i].addEventListener("click", function(e) {
-			showSlide((slideIndex = i + 1));
-
-		});
-	}
-
-	function plusSlides() {
-		showSlide((slideIndex += 1));
-	}
-
-
-	function divideSlides() {
-		showSlide((slideIndex -= 1));
-	}
-
-	function showSlide(num) {
-		let slides = document.getElementsByClassName("slide_item");
-		let dots = document.getElementsByClassName("dot");
-
-		if (num > slides.length) {
-			slideIndex = 1;
-		}
-
-		if (num < 1) {
-			slideIndex =slides.length;
-		}
-
-		for (let i = 0; i < slides.length; i++) {
-			slides[i].style.display = "none";
-		}
-
-		for (let i = 0; i < dots.length; i++) {
-			dots[i].className = dots[i].className.replace("active", "")
-		}
-
-		slides[slideIndex - 1].style.display = "block";
-		dots[slideIndex - 1].className += " active";
-	}
-});
-
+logoutButton.addEventListener("click", function() {
+	localStorage.removeItem("token");
+	location.reload()
+})
