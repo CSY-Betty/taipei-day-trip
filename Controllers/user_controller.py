@@ -1,6 +1,6 @@
 from flask import *
 import json
-from Models.dbcrud import *
+from Models.users import *
 import jwt
 from datetime import datetime, timedelta
 from Views.response import *
@@ -9,8 +9,6 @@ from Views.response import *
 def signup_controll():
     data = request.get_json()
     result = signup_to_db(data)
-    print(data)
-    print(result)
 
     if result == 200:
         success_message = {"ok": True}
@@ -39,9 +37,8 @@ def signin_controll():
             algorithm="HS256",
         )
         success_message = {"token": encoded_jwt}
-        response = create_auth_response(success_message, status_code)
+        response = create_success_response(success_message, status_code)
         response.headers["Authorization"] = encoded_jwt
-
         return response
 
     elif status_code == 400:

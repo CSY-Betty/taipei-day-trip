@@ -1,6 +1,4 @@
 from flask import *
-import json
-from Models.dbcrud import *
 from Controllers.attraction_controller import (
     generate_attractions,
     generate_one_of_the_attractions,

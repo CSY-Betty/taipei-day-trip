@@ -20,10 +20,3 @@ def create_error_response(message, status_code):
         content_type="application/json; charset=utf-8",
     )
     return response
-
-
-def create_auth_response(message, status_code):
-    response = Response(
-        message, status=status_code, content_type="application/json; charset=utf-8"
-    )
-    return response

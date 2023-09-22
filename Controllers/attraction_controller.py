@@ -1,5 +1,5 @@
 from flask import *
-from Models.dbcrud import *
+from Models.attractions import *
 from Views.response import *
 
 
