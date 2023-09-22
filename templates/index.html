@@ -1,163 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Base</title>
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="https://unpkg.com/ress/dist/ress.min.css"
-		/>
-		<link rel="stylesheet" type="text/css" href="../static/public.css" />
-		<link rel="stylesheet" type="text/css" href="../static/index.css" />
-		<link rel="stylesheet" type="text/css" href="../static/style.css" />
-	</head>
-	<body>
-		<header class="head fixed-top">
-			<div class="head-content">
-				<button id="title" class="h2-bold">台北一日遊</button>
-				<nav>
-					<ul class="header-nav">
-						<li>
-							<button
-								class="header__scheduled body-med"
-								type="button"
-							>
-								預定行程
-							</button>
-						</li>
-						<li>
-							<button
-								id="loginRegisterButton"
-								class="header__signin body-med"
-								type="button"
-							>
-								登入/註冊
-							</button>
-							<buttom
-								id="logoutButton"
-								class="header__logout body-med"
-								type="button"
-								>登出系統</buttom
-							>
-							<dialog id="loginDialog" class="nav__login">
-								<div class="login__bar"></div>
-								<span class="login__title h3-bold"
-									>登入會員帳號</span
-								>
-								<button id="loginClose" class="login__close">
-									<img src="../static/icon/icon_close.png" />
-								</button>
-								<input
-									id="loginEmail"
-									class="login__eamil body-med"
-									placeholder="輸入電子信箱"
-								/>
-								<input
-									id="loginPassword"
-									class="login__password body-med"
-									type="password"
-									placeholder="輸入密碼"
-								/>
-								<button
-									id="loginButton"
-									class="login__button btn-reg"
-								>
-									登入帳戶
-								</button>
-								<span
-									id="loginError"
-									class="login_error"
-								></span>
-								<button
-									id="loginRegist"
-									class="login__regist body-med"
-								>
-									還沒有帳戶？點此註冊
-								</button>
-							</dialog>
+{% extends "base.html" %} {% block CSSstyle %}
+<link rel="stylesheet" type="text/css" href="../static/index.css" />
 
-							<dialog id="registDialog" class="nav__regist">
-								<div class="regist__bar"></div>
-								<span class="regist__title h3-bold"
-									>註冊會員帳號</span
-								>
-								<button id="registClose" class="regist__close">
-									<img src="../static/icon/icon_close.png" />
-								</button>
-								<input
-									id="registName"
-									class="regist__name body-med"
-									placeholder="輸入姓名"
-								/>
-								<input
-									id="registEmail"
-									class="regist__eamil body-med"
-									placeholder="輸入電子郵件"
-								/>
-								<input
-									id="registPassword"
-									class="regist__password body-med"
-									type="password"
-									placeholder="輸入密碼"
-								/>
-								<button
-									id="registButton"
-									class="regist__button btn-reg"
-								>
-									註冊新帳戶
-								</button>
-								<span
-									id="registMessage"
-									class="regist_message body-med"
-								></span>
-								<button
-									id="registLogin"
-									class="regist__login body-med"
-								>
-									已經有帳戶了？點此登入
-								</button>
-							</dialog>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</header>
-		<section>
-			<div class="welcome">
-				<div class="welcome__item container">
-					<div class="slogan">
-						<div class="h1-bold">輕鬆享受台北一日悠閒</div>
-						<div class="body-bold">
-							探索每個角落，體驗城市的深度旅遊行程
-						</div>
-					</div>
-
-					<div class="search">
-						<input
-							id="searchBox"
-							class="search_bar body-bold"
-							type="text"
-							placeholder="輸入景點名稱查詢"
-						/>
-						<button id="searchButton" type="button"></button>
-					</div>
+{% endblock %} {% block Content %}
+<section>
+	<div class="welcome">
+		<div class="welcome__item container">
+			<div class="slogan">
+				<div class="h1-bold">輕鬆享受台北一日悠閒</div>
+				<div class="body-bold">
+					探索每個角落，體驗城市的深度旅遊行程
 				</div>
 			</div>
-		</section>
-		<main class="container">
-			<nav class="list_bar">
-				<button id="left_btn" class="left_btn"></button>
-				<div id="mrts_container" class="mrts_container"></div>
-				<button id="right_btn" class="right_btn"></button>
-			</nav>
-			<div id="attractions" class="attractions"></div>
-		</main>
-		<footer class="footer">
-			<div class="container body-bold">COPYRIGHT © 2021 台北一日遊</div>
-		</footer>
-		<script defer type="module" src="../static/index.js"></script>
-		<script defer type="module" src="../static/user.js"></script>
-	</body>
-</html>
+
+			<div class="search">
+				<input
+					id="searchBox"
+					class="search_bar body-bold"
+					type="text"
+					placeholder="輸入景點名稱查詢"
+				/>
+				<button id="searchButton" type="button"></button>
+			</div>
+		</div>
+	</div>
+</section>
+<main class="container">
+	<nav class="list_bar">
+		<button id="left_btn" class="left_btn"></button>
+		<div id="mrts_container" class="mrts_container"></div>
+		<button id="right_btn" class="right_btn"></button>
+	</nav>
+	<div id="attractions" class="attractions"></div>
+</main>
+{% endblock %} {% block Script %}
+<script defer type="module" src="../static/index.js"></script>
+<script defer type="module" src="../static/user.js"></script>
+{% endblock %}
