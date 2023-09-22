@@ -25,3 +25,31 @@ def generate_attractions():
     except Exception:
         error_message = "伺服器異常"
         return create_error_response(error_message, 500)
+
+
+def generate_one_of_the_attractions(attractionId):
+    try:
+        result = get_attraction_withid(attractionId)
+        image_list = json.loads(result["images"])
+        result["images"] = image_list
+
+        success_message = {"data": result}
+        return create_success_response(success_message, 200)
+
+    except ValueError:
+        error_message = "編號錯誤"
+        return create_error_response(error_message, 400)
+
+    except Exception:
+        error_message = "伺服器異常"
+        return create_error_response(error_message, 500)
+
+
+def generate_mrts():
+    try:
+        result = get_mrts_attractions()
+        success_message = {"data": result}
+        return create_success_response(success_message, 200)
+    except Exception:
+        error_message = "伺服器異常"
+        return create_error_response(error_message, 500)
