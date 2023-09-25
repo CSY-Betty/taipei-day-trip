@@ -1,4 +1,5 @@
 import * as divBuilder from './div-builder.js' 
+import * as fetchData from './fetchData.js'
 
 
 let nextPage = null; 
@@ -7,39 +8,7 @@ let searchQuery = '';
 
 
 
-// api連接-取得MRT資料
-function getMRTData() {
-    return fetch(`/api/mrts`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-    .then(respose => respose.json());
-};
 
-
-// api連接-取得Attraction資料
-function getAttractionData() {
-	return fetch(`/api/attractions`, {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		},
-	})
-	.then(respose => respose.json());
-}
-
-// api連接-取得Keyword資料
-function getKeywordData(searchQuery) {
-    return fetch(`/api/attractions?keyword=${searchQuery}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-    .then(response => response.json());
-}
 
 
 // 監聽器-list_bar
@@ -63,7 +32,7 @@ function mrtButtonHandler() {
 
 
 function loadAttractionData() {
-    getAttractionData().then(attractionData => {
+    fetchData.getAttractionData().then(attractionData => {
         nextPage = attractionData.nextPage;
         searchQuery = null;
         divBuilder.createAttraction(attractionData)
@@ -98,7 +67,7 @@ searchButton.addEventListener("click", function(){
 
 // 關鍵字查詢
 function searchByKeyword(searchQuery) {
-    getKeywordData(searchQuery).then(data => {
+    fetchData.getKeywordData(searchQuery).then(data => {
         const attractionData = data.data
         if (attractionData.length === 0) {
             divBuilder.createNoData();
@@ -200,7 +169,7 @@ function scroll(direction) {
 
 
 loadAttractionData();
-getMRTData().then(MrtData => {
+fetchData.getMRTData().then(MrtData => {
     divBuilder.createMrtList(MrtData);
     mrtButtonHandler();
 });
