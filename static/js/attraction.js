@@ -207,3 +207,4 @@ orderCheck.addEventListener("click", function() {
 		loginDialog.showModal();
 	}
 })
+

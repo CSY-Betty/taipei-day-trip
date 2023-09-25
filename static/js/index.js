@@ -128,14 +128,6 @@ function loadMore(searchQuery){
 }
 
 
-// 返回初始畫面
-let titleButton = document.getElementById("title");
-titleButton.addEventListener("click", function(){
-	clearCurrentContent();
-	resetSearchBox();
-	loadAttractionData();
-});
-
 // 清空搜尋框
 function resetSearchBox() {
     const searchBox = document.getElementById("searchBox");
