@@ -12,7 +12,7 @@
     align-items: center;
     height: 320px;
     margin-top: 54px;
-    background-image: url(./icon/welcome.jpg);
+    background-image: url(../image/welcome.jpg);
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -74,7 +74,7 @@
     width: 60px;
     height: 46px;
     border-radius: 0 5px 5px 0;
-    background-image: url(./icon/icon_search.png);
+    background-image: url(../image/icon_search.png);
     background-position: center center;
     background-repeat: no-repeat;
 }
@@ -99,7 +99,7 @@
 
 
 .left_btn {
-    background-image: url(./icon/left_container.png);
+    background-image: url(../image/left_container.png);
     width: 47px;
     height: 50px;
     padding: 13px 0 9px 15px;
@@ -135,7 +135,7 @@
 
 
 .right_btn {
-    background-image: url(./icon/right_container.png);
+    background-image: url(../image/right_container.png);
     width: 57px;
     height: 50px;
     background-position: top 9px left 10px;

@@ -2,7 +2,7 @@ from flask import *
 import jwt
 from datetime import datetime, timedelta
 import Models.users as users
-import Views.response as response
+import Views.response as responses
 
 
 def signup_controll():
@@ -11,13 +11,13 @@ def signup_controll():
 
     if result == 200:
         success_message = {"ok": True}
-        return response.create_success_response(success_message, result)
+        return responses.create_success_response(success_message, result)
     elif result == 400:
         error_message = "註冊失敗，重複的 Email 或其他原因"
-        return response.create_error_response(error_message, result)
+        return responses.create_error_response(error_message, result)
     else:
         error_message = "伺服器內部錯誤"
-        return response.create_error_response(error_message, result)
+        return responses.create_error_response(error_message, result)
 
 
 def signin_controll():
@@ -36,16 +36,16 @@ def signin_controll():
             algorithm="HS256",
         )
         success_message = {"token": encoded_jwt}
-        response = response.create_success_response(success_message, status_code)
+        response = responses.create_success_response(success_message, status_code)
         response.headers["Authorization"] = encoded_jwt
         return response
 
     elif status_code == 400:
         error_message = "登入失敗，帳號或密碼錯誤"
-        return response.create_error_response(error_message, status_code)
+        return responses.create_error_response(error_message, status_code)
     else:
         error_message = "伺服器內部錯誤"
-        return response.create_error_response(error_message, status_code)
+        return responses.create_error_response(error_message, status_code)
 
 
 def auth_controll():
@@ -62,7 +62,7 @@ def auth_controll():
                 "email": result[1]["email"],
             }
         }
-        return response.create_success_response(success_message, 200)
+        return responses.create_success_response(success_message, 200)
     except jwt.ExpiredSignatureError:
         error_message = "Signature has expired."
-        return response.create_error_response(error_message, 401)
+        return responses.create_error_response(error_message, 401)

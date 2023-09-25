@@ -9,8 +9,12 @@
 			type="text/css"
 			href="https://unpkg.com/ress/dist/ress.min.css"
 		/>
-		<link rel="stylesheet" type="text/css" href="../static/style.css" />
-		<link rel="stylesheet" type="text/css" href="../static/public.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../static/css/public.css"
+		/>
 		{% block CSSstyle %} {% endblock %}
 	</head>
 	<body>
@@ -47,7 +51,7 @@
 									>登入會員帳號</span
 								>
 								<button id="loginClose" class="login__close">
-									<img src="../static/icon/icon_close.png" />
+									<img src="../static/image/icon_close.png" />
 								</button>
 								<input
 									id="loginEmail"
@@ -84,7 +88,7 @@
 									>註冊會員帳號</span
 								>
 								<button id="registClose" class="regist__close">
-									<img src="../static/icon/icon_close.png" />
+									<img src="../static/image/icon_close.png" />
 								</button>
 								<input
 									id="registName"
@@ -131,6 +135,7 @@
 			<div class="container body-bold">COPYRIGHT © 2021 台北一日遊</div>
 		</footer>
 
+		<script defer type="module" src="../static/js/user.js"></script>
 		{% block Script %} {% endblock %}
 	</body>
 </html>

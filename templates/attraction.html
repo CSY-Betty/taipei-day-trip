@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block CSSstyle %}
-<link rel="stylesheet" type="text/css" href="../static/attraction.css" />
+<link rel="stylesheet" type="text/css" href="../static/css/attraction.css" />
 {% endblock %} {% block Content %}
 <section class="container">
 	<div id="infoContainer" class="attraction-info">
@@ -7,12 +7,12 @@
 			<img
 				id="prev"
 				class="slide__arraw slide__arraw--prev"
-				src="../static/icon/img_prev.png"
+				src="../static/image/img_prev.png"
 			/>
 			<img
 				id="next"
 				class="slide__arraw slide__arraw--next"
-				src="../static/icon/img_next.png"
+				src="../static/image/img_next.png"
 			/>
 			<div id="slideDot" class="slide__dot"></div>
 		</div>
@@ -73,6 +73,5 @@
 	</div>
 </main>
 {% endblock %} {% block Script %}
-<script defer type="text/javascript" src="../static/attraction.js"></script>
-<script defer type="module" src="../static/user.js"></script>
+<script defer type="text/javascript" src="../static/js/attraction.js"></script>
 {% endblock %}
