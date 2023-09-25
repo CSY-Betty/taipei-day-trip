@@ -22,12 +22,13 @@ def signup_controll():
 
 def signin_controll():
     data = request.get_json()
-    status_code = users.signin_to_db(data)
+    result = users.signin_to_db(data)
 
-    if status_code == 200:
+    if result[0] == 200:
         payload = {
-            "email": data["email"],
-            "password": data["password"],
+            "id": result[1]["id"],
+            "name": result[1]["name"],
+            "email": result[1]["email"],
             "exp": datetime.utcnow() + timedelta(days=7),
         }
         encoded_jwt = jwt.encode(
@@ -36,16 +37,16 @@ def signin_controll():
             algorithm="HS256",
         )
         success_message = {"token": encoded_jwt}
-        response = responses.create_success_response(success_message, status_code)
+        response = responses.create_success_response(success_message, result[0])
         response.headers["Authorization"] = encoded_jwt
         return response
 
-    elif status_code == 400:
+    elif result[0] == 400:
         error_message = "登入失敗，帳號或密碼錯誤"
-        return responses.create_error_response(error_message, status_code)
+        return responses.create_error_response(error_message, result[0])
     else:
         error_message = "伺服器內部錯誤"
-        return responses.create_error_response(error_message, status_code)
+        return responses.create_error_response(error_message, result[0])
 
 
 def auth_controll():

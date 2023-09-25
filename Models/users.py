@@ -58,11 +58,11 @@ def signin_to_db(data):
     password = data["password"]
 
     try:
-        sql = "SELECT email, password FROM users WHERE email = %s AND password = %s"
+        sql = "SELECT id, name, email FROM users WHERE email = %s AND password = %s"
         existing_user = execute_sql_one(sql, email, password)
 
         if existing_user:
-            return 200
+            return 200, existing_user
 
         else:
             return 400
@@ -73,11 +73,11 @@ def signin_to_db(data):
 
 def auth_to_db(data):
     email = data["email"]
-    password = data["password"]
+    # id = data["id"]
 
     try:
-        sql = "SELECT id, name, email FROM users WHERE email = %s AND password = %s"
-        existing_user = execute_sql_one(sql, email, password)
+        sql = "SELECT id, name, email FROM users WHERE email = %s"
+        existing_user = execute_sql_one(sql, email)
 
         if existing_user:
             return 200, existing_user

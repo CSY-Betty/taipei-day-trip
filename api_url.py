@@ -1,40 +1,51 @@
 from flask import *
-from Controllers.attraction_controller import (
-    generate_attractions,
-    generate_one_of_the_attractions,
-    generate_mrts,
-)
-from Controllers.user_controller import signup_controll, signin_controll, auth_controll
-
+import Controllers.attraction_controller as control_attraction
+import Controllers.user_controller as control_user
+import Controllers.booking_controller as control_booking
 
 apibp = Blueprint("api_route", __name__)
 
 
 @apibp.route("/attractions")
 def get_attractions():
-    return generate_attractions()
+    return control_attraction.generate_attractions()
 
 
 @apibp.route("/attraction/<attractionId>")
 def get_one_of_the_attractions(attractionId):
-    return generate_one_of_the_attractions(attractionId)
+    return control_attraction.generate_one_of_the_attractions(attractionId)
 
 
 @apibp.route("/mrts")
 def get_mrts():
-    return generate_mrts()
+    return control_attraction.generate_mrts()
 
 
 @apibp.route("/user", methods=["POST"])
 def signup():
-    return signup_controll()
+    return control_user.signup_controll()
 
 
 @apibp.route("/user/auth", methods=["PUT"])
 def signin():
-    return signin_controll()
+    return control_user.signin_controll()
 
 
 @apibp.route("/user/auth", methods=["GET"])
 def auth():
-    return auth_controll()
+    return control_user.auth_controll()
+
+
+@apibp.route("/booking", methods=["get"])
+def booking():
+    pass
+
+
+@apibp.route("/booking", methods=["POST"])
+def make_new_booking():
+    return control_booking.create_booking()
+
+
+@apibp.route("/booking", methods=["DELETE"])
+def delete_booking():
+    pass
