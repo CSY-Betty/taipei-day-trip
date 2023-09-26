@@ -46,7 +46,7 @@ def signin_controll():
         return responses.create_error_response(error_message, result[0])
     else:
         error_message = "伺服器內部錯誤"
-        return responses.create_error_response(error_message, result[0])
+        return responses.create_error_response(error_message, result)
 
 
 def auth_controll():

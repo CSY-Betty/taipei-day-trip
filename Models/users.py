@@ -62,10 +62,10 @@ def signin_to_db(data):
         existing_user = execute_sql_one(sql, email, password)
 
         if existing_user:
-            return 200, existing_user
+            return (200, existing_user)
 
         else:
-            return 400
+            return (400,)
 
     except:
         return 500
