@@ -22,9 +22,18 @@ hr {
 
 .container_nobooking {
     display: none;
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 30px;
     margin-bottom: 40px;
     padding-left: 8px;
+}
+
+@media (max-width: 1200px) {
+    .container_nobooking {
+        width: auto;
+    }
 }
 
 .container_nobooking.body-med {
