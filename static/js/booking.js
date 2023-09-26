@@ -21,7 +21,10 @@ function renderUserData(data){
     inputEmail.value = data.data['email'];
 
     let inputPhone = document.getElementById('inputPhone');
-    // 只能輸入數字
+    inputPhone.addEventListener('input', function() {
+        let phoneNumber = this.value.replace(/[^\d-]/g, '');
+        this.value = phoneNumber;
+    })
 }
 
 
@@ -89,5 +92,6 @@ if (token) {
             renderNoBooking();
         }
     });
-    
+} else {
+    window.location.href = '/';
 }

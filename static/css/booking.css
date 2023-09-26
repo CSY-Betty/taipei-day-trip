@@ -136,6 +136,11 @@ hr {
     background: var(--White, #FFF);
 }
 
+.contact_information__input:focus {
+    border: 1.5px solid var(--secondary-color-gray-70, #666);
+}
+
+
 .contact_information__title.btn-bold {
     color: var(--secondary-color-gray-70, #666);
 }
@@ -178,6 +183,10 @@ hr {
     border-radius: 5px;
     border: 1px solid var(--Gray-300, #E8E8E8);
     background: var(--White, #FFF);
+}
+
+.payment__input:focus {
+    border: 1.5px solid var(--secondary-color-gray-70, #666);
 }
 
 .payment__title.btn-bold {
