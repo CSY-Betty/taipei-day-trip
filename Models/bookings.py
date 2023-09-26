@@ -15,7 +15,6 @@ def execute_sql_one(sql, *args):
     with pool.get_connection() as pooling:
         with pooling.cursor(dictionary=True) as cursor:
             cursor.execute(sql, args)
-            pooling.commit()
             return cursor.fetchone()
 
 
@@ -34,20 +33,29 @@ def create_booking_to_db(data, user):
     price = data["price"]
 
     try:
-        with pool.get_connection() as pooling:
-            with pooling.cursor() as cursor:
-                SQL = "INSERT INTO bookings(user_id, attraction_id, date, time, price) VALUES(%s, %s, %s, %s, %s)"
-                values = (user_id, attraction_id, date, time, price)
-                cursor.execute(SQL, values)
-            pooling.commit()
+        search_SQL = "SELECT user_id FROM bookings WHERE user_id = %s"
+        existing_user = execute_sql_one(search_SQL, user_id)
+        if existing_user:
+            with pool.get_connection() as pooling:
+                with pooling.cursor() as cursor:
+                    SQL = "UPDATE bookings SET attraction_id = %s, date = %s, time = %s, price = %s WHERE user_id = %s"
+                    values = (attraction_id, date, time, price, user_id)
+                    cursor.execute(SQL, values)
+                pooling.commit()
+        else:
+            with pool.get_connection() as pooling:
+                with pooling.cursor() as cursor:
+                    SQL = "INSERT INTO bookings(user_id, attraction_id, date, time, price) VALUES(%s, %s, %s, %s, %s)"
+                    values = (user_id, attraction_id, date, time, price)
+                    cursor.execute(SQL, values)
+                pooling.commit()
+
         return 200
     except:
         return 500
 
 
-def search_booking_to_db(data):
-    user_id = data["id"]
-
+def search_booking_to_db(user_id):
     SQL = "SELECT bookings.*, attractions.name, attractions.address, attractions.images FROM bookings INNER JOIN attractions ON bookings.attraction_id = attractions.id WHERE bookings.user_id = %s"
     result = execute_sql_all(SQL, user_id)
 
@@ -56,9 +64,12 @@ def search_booking_to_db(data):
 
 def delete_booking_to_db(user_id, attraction_id):
     try:
-        SQL = "DELETE FROM bookings WHERE user_id = %s AND attraction_id = %s"
-        execute_sql_one(SQL, user_id, attraction_id)
-
+        with pool.get_connection() as pooling:
+            with pooling.cursor() as cursor:
+                SQL = "DELETE FROM bookings WHERE user_id = %s AND attraction_id = %s"
+                values = (user_id, attraction_id)
+                cursor.execute(SQL, values)
+            pooling.commit()
         return 200
 
     except:

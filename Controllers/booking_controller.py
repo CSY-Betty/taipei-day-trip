@@ -36,7 +36,7 @@ def get_bookings():
     token = auth_header.replace("Bearer ", "")
     try:
         decoded_jwt = jwt.decode(token, "key123", algorithms="HS256")
-        result = bookings.search_booking_to_db(decoded_jwt)
+        result = bookings.search_booking_to_db(decoded_jwt["id"])
         if result:
             images = json.loads(result[0]["images"])
             first_image = images[0]
