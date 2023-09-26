@@ -10,20 +10,6 @@ function getUserData() {
     .then(response => response.json())
 }
 
-if (token) {
-    getUserData().then(data => renderUserData(data));
-    getBookingData().then(data => { 
-        if (data) {
-            renderBookingData(data); 
-            cancelbooking(data);
-        }
-        else {
-            renderNoBooking();
-        }
-    });
-    
-}
-
 function renderUserData(data){
     let subheadName = document.getElementById('subheadName');
     subheadName.textContent = data.data['name'];
@@ -50,20 +36,28 @@ function renderBookingData(data) {
     bookingDate.textContent = data.data['date']
 
     let bookingTime = document.getElementById('bookingTime');
-    bookingTime.textContent = data.data['time']
-
+    if (data.data['time'] == 'morning') {
+        bookingTime.textContent = "早上 9 點到下午 4 點"
+    }
+    else {
+        bookingTime.textContent = "下午 2 點到晚上 9 點"
+    }
+        
     let bookingPrice = document.getElementById('bookingPrice');
     bookingPrice.textContent = data.data['price']
 
     let bookingAddress = document.getElementById('bookingAddress');
     bookingAddress.textContent = data.data['attraction']['address']
+
+    let confirmPrice = document.getElementById('confirmPrice');
+    confirmPrice.textContent = data.data['price']
 }
 
 function cancelbooking(data) {
     let bookingDelete = document.getElementById('bookingDelete');
     bookingDelete.addEventListener('click', function() {
         fetch(`/api/booking`, {method: 'DELETE', headers: {"Content-Type": "application/json", "Authorization": `Bearer ${token}`}, body: JSON.stringify(data.data['attraction']['id'])})
-        .then(response => console.log(response))
+        .then(window.location.reload())
     })
 }
 
@@ -82,4 +76,18 @@ function renderNoBooking() {
         hr.style.display = 'None';
     })
 
+}
+
+if (token) {
+    getUserData().then(data => renderUserData(data));
+    getBookingData().then(data => { 
+        if (data) {
+            renderBookingData(data); 
+            cancelbooking(data);
+        }
+        else {
+            renderNoBooking();
+        }
+    });
+    
 }

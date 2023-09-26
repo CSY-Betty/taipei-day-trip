@@ -10,6 +10,11 @@ hr {
     margin-top: 94px;
 }
 
+@media (max-width: 1200px) {
+    .subhead {
+        width: auto;
+    }
+}
 
 .subhead.btn-bold {
     color: var(--secondary-color-gray-70, #666);
@@ -32,6 +37,12 @@ hr {
     display: block;
 }
 
+@media (max-width: 1200px) {
+    .container_booking {
+        width: auto;
+    }
+}
+
 /* article booking_list
 ---------------------*/
 .booking_list {
@@ -41,12 +52,25 @@ hr {
     flex-direction: row;
     margin-bottom: 40px;
 }
+
+
 .booking_list__image {
     width: 250px;
     object-fit: cover;
     overflow: hidden;
     margin-left: 8px;
     margin-right: 8px;
+}
+
+@media (max-width: 575px) {
+    .booking_list {
+        flex-direction: column;
+        height: auto;
+    }
+    .booking_list__image {
+        width: auto;
+        height: 256px;
+    }
 }
 
 .booking_list__content {
@@ -79,6 +103,7 @@ hr {
     height: 30px;
     width: 30px;
     margin-left: auto;
+    cursor: pointer;
     
 }
 
