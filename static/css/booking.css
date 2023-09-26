@@ -1,0 +1,202 @@
+hr {
+    border: 0.5px solid #E8E8E8;
+    display: display;
+}
+
+.subhead {
+    width: 1000px;
+    height: 27px;
+    margin: 0 auto;
+    margin-top: 94px;
+}
+
+
+.subhead.btn-bold {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.container_nobooking {
+    display: none;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    padding-left: 8px;
+}
+
+.container_nobooking.body-med {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.container_booking {
+    width: 980px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* article booking_list
+---------------------*/
+.booking_list {
+    height: 200px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+}
+.booking_list__image {
+    width: 250px;
+    object-fit: cover;
+    overflow: hidden;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.booking_list__content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 22px;
+}
+
+.booking_list__title {
+    height: 24px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.booking_list__subtitle {
+    height: 24px;
+    margin-bottom: 20px;
+}
+
+.booking_list__title.body-bold {
+    color: var(--primary-color-cyan-70, #489);
+}
+
+.booking_list__subtitle.body-bold {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.booking_list__delete {
+    height: 30px;
+    width: 30px;
+    margin-left: auto;
+    
+}
+
+/* contact_information
+---------------------*/
+.contact_information {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+}
+.contact_information__title {
+    margin-bottom: 20px;
+}
+
+.contact_information__subtitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.contact_information__input {
+    width: 180px;
+    height: 38px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--Gray-300, #E8E8E8);
+    background: var(--White, #FFF);
+}
+
+.contact_information__title.btn-bold {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.contact_information__subtitle.body-med {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.contact_information__precautions.body-bold {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+
+
+/* payment
+---------------------*/
+.payment {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.payment__title {
+    margin-bottom: 20px;
+}
+
+.payment__subtitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.payment__input {
+    width: 180px;
+    height: 38px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--Gray-300, #E8E8E8);
+    background: var(--White, #FFF);
+}
+
+.payment__title.btn-bold {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.payment__subtitle.body-med {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+.payment__precautions.body-bold {
+    color: var(--secondary-color-gray-70, #666);
+}
+
+
+/* confirm
+---------------------*/
+.confirm {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.confirm__price {
+    margin-bottom: 22px;
+}
+
+.confirm__button {
+    width: 173px;
+    height: 36px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    background: var(--primary-color-cyan-70, #489);
+}
+
+.confirm__price.body-bold {
+    color: var(--Gray-800, #666);
+}
+
+.confirm__button.btn-reg {
+    color: var(--additional-color-white, #FFF);
+    
+}
