@@ -2,6 +2,7 @@ from flask import *
 import Controllers.attraction_controller as control_attraction
 import Controllers.user_controller as control_user
 import Controllers.booking_controller as control_booking
+import Views.response as responses
 
 apibp = Blueprint("api_route", __name__)
 
@@ -38,9 +39,19 @@ def auth():
 
 @apibp.route("/booking", methods=["GET", "POST", "DELETE"])
 def booking():
-    if request.method == "GET":
-        return control_booking.get_bookings()
-    elif request.method == "POST":
-        return control_booking.create_booking()
-    elif request.method == "DELETE":
-        return control_booking.delete_booking()
+    auth = control_user.auth_controll()
+
+    if auth.status_code == 200:
+        data = auth.response
+        # b'{"data": {"id": 11, "name": "aaa", "email": "aaa@bbb.cc"}}'
+        data_decode = json.loads(data[0].decode("utf-8"))
+
+        if request.method == "GET":
+            return control_booking.get_bookings()
+        elif request.method == "POST":
+            return control_booking.create_booking(data_decode)
+        elif request.method == "DELETE":
+            return control_booking.delete_booking()
+    else:
+        error_message = "未登入系統，拒絕存取"
+        return responses.create_error_response(error_message, 403)
