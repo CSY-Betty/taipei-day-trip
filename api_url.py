@@ -36,16 +36,11 @@ def auth():
     return control_user.auth_controll()
 
 
-@apibp.route("/booking", methods=["GET"])
+@apibp.route("/booking", methods=["GET", "POST", "DELETE"])
 def booking():
-    return control_booking.get_bookings()
-
-
-@apibp.route("/booking", methods=["POST"])
-def make_new_booking():
-    return control_booking.create_booking()
-
-
-@apibp.route("/booking", methods=["DELETE"])
-def delete_booking():
-    return control_booking.delete_booking()
+    if request.method == "GET":
+        return control_booking.get_bookings()
+    elif request.method == "POST":
+        return control_booking.create_booking()
+    elif request.method == "DELETE":
+        return control_booking.delete_booking()

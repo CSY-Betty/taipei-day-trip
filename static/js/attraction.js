@@ -186,11 +186,20 @@ orderCheck.addEventListener("click", function() {
 	else if (timeAfternoon.checked) {
 		selectedTime = "afternoon"
 	}
+
+	firstImage = imageSlide.querySelector('img').getAttribute('src');
+
+	attractionName = menu.querySelector('.menu__title').textContent;
+	attractionAddress = description.querySelector('.description__address').textContent;
+
 	bookingData = {
 		attractionId: attractionId,
+		attractionName: attractionName,
+		attractionAddress: attractionAddress,
 		date: dateSelect.value,
 		time: selectedTime,
-		price: bookingPrice
+		price: bookingPrice,
+		attractionImage: firstImage
 	}
 	if (token) {
 		fetch(`/api/booking`, {method: "POST", headers:{"Content-Type": "application/json", "Authorization": `Bearer ${token}`}, body: JSON.stringify(bookingData)})
