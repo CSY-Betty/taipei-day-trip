@@ -337,9 +337,9 @@ body {
 .footer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     text-align: center;
-    /* height: 104px; */
+    padding: 40px 0;
     min-height: 104px;
     flex: 1;
     background-color: #757575;
