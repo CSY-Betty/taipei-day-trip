@@ -1,4 +1,4 @@
-from flask import jsonify, Response
+from flask import Response
 import json
 
 
