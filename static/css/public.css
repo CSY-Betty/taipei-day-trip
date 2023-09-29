@@ -10,6 +10,13 @@ ul {
     list-style-type: none;
 }
 
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
 /* HEADER
 -------------------- */
 .head {
@@ -332,7 +339,9 @@ ul {
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 104px;
+    /* height: 104px; */
+    min-height: 104px;
+    flex: 1;
     background-color: #757575;
     margin: 40px 0 0 0;
 }
