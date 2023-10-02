@@ -10,5 +10,7 @@ CREATE TABLE users(
     );
     
 SELECT * FROM users;
+SELECT * FROM attractions;
+
 
 TRUNCATE users;

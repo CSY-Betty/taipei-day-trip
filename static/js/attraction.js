@@ -170,27 +170,41 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-let logoutButton = document.getElementById("logoutButton");
-const token = localStorage.getItem("token");
 
-if (token) {
-    fetch(`/api/user/auth`, {method: "GET", headers: {"Content-Type": "application/json", "Authorization": `Bearer ${token}`}})
-    .then(response => {
-        if (response.status === 200) {
-                loginRegisterButton.style.display = "none";
-                logoutButton.style.display = "block";
-            }
-        else {
-            loginRegisterButton.style.display = "block";
-                logoutButton.style.display = "none";
-        }}
-    )
-    .catch(error => {
-        console.error("Error:", error);
-    })
-}
 
-logoutButton.addEventListener("click", function() {
-	localStorage.removeItem("token");
-	location.reload()
+let orderCheck = document.getElementById("orderCheck")
+let loginDialog = document.getElementById("loginDialog")
+orderCheck.addEventListener("click", function() {
+	const token = localStorage.getItem("token");
+	let dateSelect = document.getElementById("dateSelect")
+	let selectedTime;
+	let priceText = priceFee.textContent
+	let bookingPrice = parseInt(priceText.replace(/\D/g, ''), 10);
+	if (timeMorning.checked) {
+		selectedTime = "morning"
+	}
+	else if (timeAfternoon.checked) {
+		selectedTime = "afternoon"
+	}
+	bookingData = {
+		attractionId: attractionId,
+		date: dateSelect.value,
+		time: selectedTime,
+		price: bookingPrice
+	}
+	if (token) {
+		fetch(`/api/booking`, {method: "POST", headers:{"Content-Type": "application/json", "Authorization": `Bearer ${token}`}, body: JSON.stringify(bookingData)})
+		.then(response => {
+			if (response.status === 200) {
+				window.location.href='/booking';
+			}
+		})
+		.catch(error => {
+			console.log("錯誤: ",error);
+		})
+	}
+	else {
+		loginDialog.showModal();
+	}
 })
+
