@@ -2,6 +2,7 @@ from flask import *
 import Controllers.attraction_controller as control_attraction
 import Controllers.user_controller as control_user
 import Controllers.booking_controller as control_booking
+import Controllers.order_controller as control_order
 import Views.response as responses
 
 apibp = Blueprint("api_route", __name__)
@@ -55,3 +56,20 @@ def booking():
     else:
         error_message = "未登入系統，拒絕存取"
         return responses.create_error_response(error_message, 403)
+
+
+@apibp.route("/orders", methods=["POST"])
+def order():
+    auth = control_user.auth_controll()
+    if auth.status_code == 200:
+        data = auth.response
+        # b'{"data": {"id": 11, "name": "aaa", "email": "aaa@bbb.cc"}}'
+        data_decode = json.loads(data[0].decode("utf-8"))
+        return control_order.build_payment(data_decode)
+
+
+@apibp.route("/order/<orderNumber>", methods=["GET"])
+def get_order(orderNumber):
+    auth = control_user.auth_controll()
+    if auth.status_code == 200:
+        return control_order.get_payment(orderNumber)

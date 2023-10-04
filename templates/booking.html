@@ -5,58 +5,110 @@
 	<div class="subhead btn-bold">
 		你好，<span id="subheadName"></span>，待預定的行程如下：
 	</div>
-    <div class="container_nobooking body-med">目前沒有任何待預定的行程</div>
+	<div class="container_nobooking body-med">目前沒有任何待預定的行程</div>
 	<article class="container_booking">
-        <div class="booking_list">
-            <img id="bookingImage" class="booking_list__image" />
-		    <div class="booking_list__content">
-			    <p class="booking_list__title body-bold">台北一日遊：<span id="bookingTitle" class="body-med"></spam></p>
-			    <p class="booking_list__subtitle body-bold">日期：<span id="bookingDate" class="body-med"></span></p>
-			    <p class="booking_list__subtitle body-bold">時間：<span id="bookingTime" class="body-med"></span></p>
-			    <p class="booking_list__subtitle body-bold">費用：新台幣 <span id="bookingPrice" class="body-med"></span> 元</p>
-			    <p class="booking_list__subtitle body-bold">地點：<span id="bookingAddress" class="body-med"></span></p>
-            </div>
-            <img id="bookingDelete"
-                class="booking_list__delete"
-                src="../static/image/icon_delete.png"
-            />
-        </div>
+		<div class="booking_list">
+			<img id="bookingImage" class="booking_list__image" />
+			<div class="booking_list__content">
+				<p class="booking_list__title body-bold">
+					台北一日遊：<span id="bookingTitle" class="body-med"></span>
+				</p>
+				<p class="booking_list__subtitle body-bold">
+					日期：<span id="bookingDate" class="body-med"></span>
+				</p>
+				<p class="booking_list__subtitle body-bold">
+					時間：<span id="bookingTime" class="body-med"></span>
+				</p>
+				<p class="booking_list__subtitle body-bold">
+					費用：新台幣
+					<span id="bookingPrice" class="body-med"></span> 元
+				</p>
+				<p class="booking_list__subtitle body-bold">
+					地點：<span id="bookingAddress" class="body-med"></span>
+				</p>
+			</div>
+			<img
+				id="bookingDelete"
+				class="booking_list__delete"
+				src="../static/image/icon_delete.png"
+			/>
+		</div>
 	</article>
-    <hr>
-    <article class="container_booking">
-        <div class="contact_information">
-            <p class="contact_information__title btn-bold">您的聯絡資訊</p>
-            <div class="contact_information__subtitle body-med"><label>聯絡姓名：</label>
-                <input id="inputName" class="contact_information__input"></div>
-            <div class="contact_information__subtitle body-med"><label>連絡信箱：</label>
-                <input id="inputEmail" class="contact_information__input"></div>
-            <div class="contact_information__subtitle body-med"><label>手機號碼：</label>
-                <input id="inputPhone" 
-                class="contact_information__input"></div>
-            <p class="contact_information__precautions body-bold">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</p>
-        </div>
-    </article>
-    <hr>
-    <article class="container_booking">
-        <div class="payment">
-            <p class="payment__title btn-bold">信用卡付款資訊</p>
-            <div class="payment__subtitle body-med"><label>卡片號碼：</label>
-                <input class="payment__input" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19" placeholder="**** **** **** ****"></div>
-            <div class="payment__subtitle body-med"><label>過期時間：</label>
-                <input class="payment__input" maxlength="7" placeholder="MM /YY"></div>
-            <div class="payment__subtitle body-med"><label>驗證密碼：</label>
-                <input class="payment__input" maxlength="4" placeholder="CSV"></div>
-        </div>
-    </article>
-    <hr>
-    <article class="container_booking">
-        <div class="confirm">
-            <p class="confirm__price body-bold">總價：新台幣 <span id="confirmPrice"></span> 元</p>
-            <button class="confirm__button btn-reg">確認訂購並付款</button>
-        </div>
-    </article>
+	<hr />
+	<article class="container_booking">
+		<div class="contact_information">
+			<p class="contact_information__title btn-bold">您的聯絡資訊</p>
+			<div class="contact_information__subtitle body-med">
+				<label
+					>聯絡姓名：
+					<input id="inputName" class="contact_information__input"
+				/></label>
+			</div>
+			<div class="contact_information__subtitle body-med">
+				<label
+					>連絡信箱：
+					<input id="inputEmail" class="contact_information__input"
+				/></label>
+			</div>
+			<div class="contact_information__subtitle body-med">
+				<label
+					>手機號碼：
+					<input id="inputPhone" class="contact_information__input"
+				/></label>
+			</div>
+			<p class="contact_information__precautions body-bold">
+				請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
+			</p>
+		</div>
+	</article>
+	<hr />
+	<article class="container_booking">
+		<div class="payment">
+			<p class="payment__title btn-bold">信用卡付款資訊</p>
+			<div class="payment__subtitle body-med">
+				<div>卡片號碼：</div>
+				<div
+					id="card-number"
+					class="payment__input"
+					inputmode="numeric"
+					pattern="[0-9\s]{13,19}"
+					maxlength="19"
+				></div>
+			</div>
+			<div class="payment__subtitle body-med">
+				<div>過期時間：</div>
+				<div
+					id="card-expiration-date"
+					class="payment__input"
+					maxlength="7"
+				></div>
+			</div>
+			<div class="payment__subtitle body-med">
+				<div>驗證密碼：</div>
+				<div id="card-ccv" class="payment__input" maxlength="4"></div>
+			</div>
+		</div>
+	</article>
+	<hr />
+	<article class="container_booking">
+		<div class="confirm">
+			<p class="confirm__price body-bold">
+				總價：新台幣 <span id="confirmPrice"></span> 元
+			</p>
+			<button
+				id="submitButton"
+				typr="submit"
+				class="confirm__button btn-reg"
+				disabled
+			>
+				確認訂購並付款
+			</button>
+		</div>
+	</article>
 </div>
 
 {% endblock %} {% block Script %}
 <script defer type="text/javascript" src="../static/js/booking.js"></script>
+<script src="https://js.tappaysdk.com/sdk/tpdirect/v5.17.0"></script>
+<script type="text/javascript" src="../static/js/tapPay.js"></script>
 {% endblock %}
