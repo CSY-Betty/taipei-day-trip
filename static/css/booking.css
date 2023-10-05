@@ -79,6 +79,9 @@ hr {
     .booking_list__image {
         width: auto;
         height: 256px;
+        margin-bottom: 28px;
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 
@@ -87,6 +90,7 @@ hr {
     flex-direction: column;
     margin-left: 22px;
 }
+
 
 .booking_list__title {
     height: 24px;
