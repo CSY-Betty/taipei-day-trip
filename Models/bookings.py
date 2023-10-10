@@ -59,7 +59,7 @@ def search_booking_to_db(user_id):
     SQL = "SELECT bookings.*, attractions.name, attractions.address, attractions.images FROM bookings INNER JOIN attractions ON bookings.attraction_id = attractions.id WHERE bookings.user_id = %s"
     result = execute_sql_all(SQL, user_id)
 
-    return result
+    return 200, result
 
 
 def delete_booking_to_db(user_id, attraction_id):
