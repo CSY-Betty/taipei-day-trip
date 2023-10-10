@@ -33,7 +33,9 @@ def build_payment(user):
         # 發送 POST 請求
         url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
         response = requests.post(url, json=tap_data, headers=headers)
+        print(response)
         response_data = json.loads(response.text)
+        print(response_data)
 
         if response_data["status"] == 0:
             orders.update_payment_status(order_id)

@@ -40,17 +40,16 @@ def auth():
 
 @apibp.route("/booking", methods=["GET", "POST", "DELETE"])
 def booking():
+    data = request.get_json()
     auth = control_user.auth_controll()
 
     if auth.status_code == 200:
-        data = auth.response
-        # b'{"data": {"id": 11, "name": "aaa", "email": "aaa@bbb.cc"}}'
-        data_decode = json.loads(data[0].decode("utf-8"))
+        user = auth.response
 
         if request.method == "GET":
             return control_booking.get_bookings()
         elif request.method == "POST":
-            return control_booking.create_booking(data_decode)
+            return control_booking.create_booking(user, data)
         elif request.method == "DELETE":
             return control_booking.delete_booking()
     else:

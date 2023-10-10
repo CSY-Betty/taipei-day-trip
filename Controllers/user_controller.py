@@ -37,9 +37,7 @@ def signin_controll():
             algorithm="HS256",
         )
         success_message = {"token": encoded_jwt}
-        response = responses.create_success_response(success_message, result[0])
-        response.headers["Authorization"] = encoded_jwt
-        return response
+        return responses.create_success_response(success_message, result[0])
 
     elif result[0] == 400:
         error_message = "登入失敗，帳號或密碼錯誤"

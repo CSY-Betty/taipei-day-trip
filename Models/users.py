@@ -1,28 +1,4 @@
-import mysql.connector
-
-# connect to sql by pool
-pool = mysql.connector.pooling.MySQLConnectionPool(
-    pool_name="mypool",
-    pool_size=5,
-    host="localhost",
-    user="root",
-    password="root123",
-    database="tdtWeb",
-)
-
-
-def execute_sql_one(sql, *args):
-    with pool.get_connection() as pooling:
-        with pooling.cursor(dictionary=True) as cursor:
-            cursor.execute(sql, args)
-            return cursor.fetchone()
-
-
-def execute_sql_all(sql, *args):
-    with pool.get_connection() as pooling:
-        with pooling.cursor(dictionary=True) as cursor:
-            cursor.execute(sql, args)
-            return cursor.fetchall()
+import Models.sqlcon as sql_connect
 
 
 def signup_to_db(data):
@@ -32,25 +8,18 @@ def signup_to_db(data):
 
     try:
         sql = "SELECT email FROM users WHERE email = %s"
-        existing_user = execute_sql_one(sql, email)
+        existing_user = sql_connect.search_one(sql, email)
 
         if existing_user:
-            return 400
+            return 400, None
 
         else:
-            with pool.get_connection() as pooling:
-                with pooling.cursor() as cursor:
-                    add_user = (
-                        "INSERT INTO users(name, email, password) VALUES(%s, %s, %s)"
-                    )
-                    values = (name, email, password)
-                    cursor.execute(add_user, values)
-                pooling.commit()
-
-            return 200
-
+            add_user = "INSERT INTO users(name, email, password) VALUES(%s, %s, %s)"
+            values = (name, email, password)
+            result = sql_connect.update_sql(add_user, *values)
+            return 200, result
     except:
-        return 500
+        return 500, None
 
 
 def signin_to_db(data):
@@ -59,31 +28,30 @@ def signin_to_db(data):
 
     try:
         sql = "SELECT id, name, email FROM users WHERE email = %s AND password = %s"
-        existing_user = execute_sql_one(sql, email, password)
-
-        if existing_user:
-            return (200, existing_user)
-
-        else:
-            return (400,)
-
-    except:
-        return 500
-
-
-def auth_to_db(data):
-    email = data["email"]
-    # id = data["id"]
-
-    try:
-        sql = "SELECT id, name, email FROM users WHERE email = %s"
-        existing_user = execute_sql_one(sql, email)
+        existing_user = sql_connect.search_one(sql, email, password)
 
         if existing_user:
             return 200, existing_user
 
         else:
-            return None
+            return 400, None
 
     except:
-        return 500
+        return 500, None
+
+
+def auth_to_db(data):
+    email = data["email"]
+
+    try:
+        sql = "SELECT id, name, email FROM users WHERE email = %s"
+        existing_user = sql_connect.search_one(sql, email)
+
+        if existing_user:
+            return 200, existing_user
+
+        else:
+            return 400, None
+
+    except:
+        return 500, None

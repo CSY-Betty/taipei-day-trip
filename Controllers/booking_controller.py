@@ -2,10 +2,11 @@ from flask import *
 import Views.response as responses
 
 
-def create_booking(user):
-    data = request.get_json()
+def create_booking(user, data):
+    # b'{"data": {"id": 11, "name": "aaa", "email": "aaa@bbb.cc"}}'
+    user_decode = json.loads(user[0].decode("utf-8"))
     try:
-        session["user_id"] = user["data"]["id"]
+        session["user_id"] = user_decode["data"]["id"]
         session["attraction_id"] = data["attractionId"]
         session["attraction_name"] = data["attractionName"]
         session["atteaction_address"] = data["attractionAddress"]

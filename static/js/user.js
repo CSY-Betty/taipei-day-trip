@@ -55,18 +55,24 @@ loginButton.addEventListener("click", function() {
         }
     
         fetch(`/api/user/auth`, {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(login)})
-        .then(response => {
+        .then((response) => {
             if (response.status === 200) {
-                const token = response.headers.get("Authorization");
-                localStorage.setItem("token", token);
-                loginDialog.close();
-                location.reload();
-            }
-            else if (response.status === 400 ) {
+                return response.json();
+            } 
+            else if (response.status === 400) {
                 loginDialog.style.height = "307px";
                 loginError.style.display = "block";
                 loginError.innerHTML = "電子郵件或密碼錯誤"
+                throw new Error("登入失敗");
+            } 
+            else {
+            throw new Error("API 請求失敗");
             }
+        })
+        .then(data => {
+            localStorage.setItem("token", data.token);
+            loginDialog.close();
+            location.reload();
         })
         .catch (error => {
             console.log("發生錯誤: ", error);
