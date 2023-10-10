@@ -7,24 +7,24 @@ import Views.response as responses
 
 def signup_controll():
     data = request.get_json()
-    result = users.signup_to_db(data)
+    status_code, result = users.signup_to_db(data)
 
-    if result == 200:
+    if status_code == 200:
         success_message = {"ok": True}
-        return responses.create_success_response(success_message, result)
-    elif result == 400:
+        return responses.create_success_response(success_message, status_code)
+    elif status_code == 400:
         error_message = "註冊失敗，重複的 Email 或其他原因"
-        return responses.create_error_response(error_message, result)
+        return responses.create_error_response(error_message, status_code)
     else:
         error_message = "伺服器內部錯誤"
-        return responses.create_error_response(error_message, result)
+        return responses.create_error_response(error_message, status_code)
 
 
 def encoded_jwt(user_data):
     payload = {
-        "id": user_data[1]["id"],
-        "name": user_data[1]["name"],
-        "email": user_data[1]["email"],
+        "id": user_data["id"],
+        "name": user_data["name"],
+        "email": user_data["email"],
         "exp": datetime.utcnow() + timedelta(days=7),
     }
     token = jwt.encode(
@@ -37,19 +37,19 @@ def encoded_jwt(user_data):
 
 def signin_controll():
     data = request.get_json()
-    result = users.signin_to_db(data)
+    status_code, result = users.signin_to_db(data)
 
-    if result[0] == 200:
+    if status_code == 200:
         token = encoded_jwt(result)
         success_message = {"token": token}
-        return responses.create_success_response(success_message, result[0])
+        return responses.create_success_response(success_message, status_code)
 
-    elif result[0] == 400:
+    elif status_code == 400:
         error_message = "登入失敗，帳號或密碼錯誤"
-        return responses.create_error_response(error_message, result[0])
+        return responses.create_error_response(error_message, status_code)
     else:
         error_message = "伺服器內部錯誤"
-        return responses.create_error_response(error_message, result)
+        return responses.create_error_response(error_message, status_code)
 
 
 def decoded_jwt(token):
@@ -63,15 +63,15 @@ def auth_controll():
 
     try:
         user = decoded_jwt(token)
-        result = users.auth_to_db(user)
+        status_code, user_data = users.auth_to_db(user)
         success_message = {
             "data": {
-                "id": result[1]["id"],
-                "name": result[1]["name"],
-                "email": result[1]["email"],
+                "id": user_data["id"],
+                "name": user_data["name"],
+                "email": user_data["email"],
             }
         }
-        return responses.create_success_response(success_message, 200)
+        return responses.create_success_response(success_message, status_code)
     except jwt.ExpiredSignatureError:
         error_message = "Signature has expired."
         return responses.create_error_response(error_message, 401)
