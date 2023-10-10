@@ -20,23 +20,28 @@ def signup_controll():
         return responses.create_error_response(error_message, result)
 
 
+def encoded_jwt(user_data):
+    payload = {
+        "id": user_data[1]["id"],
+        "name": user_data[1]["name"],
+        "email": user_data[1]["email"],
+        "exp": datetime.utcnow() + timedelta(days=7),
+    }
+    token = jwt.encode(
+        payload,
+        "key123",
+        algorithm="HS256",
+    )
+    return token
+
+
 def signin_controll():
     data = request.get_json()
     result = users.signin_to_db(data)
 
     if result[0] == 200:
-        payload = {
-            "id": result[1]["id"],
-            "name": result[1]["name"],
-            "email": result[1]["email"],
-            "exp": datetime.utcnow() + timedelta(days=7),
-        }
-        encoded_jwt = jwt.encode(
-            payload,
-            "key123",
-            algorithm="HS256",
-        )
-        success_message = {"token": encoded_jwt}
+        token = encoded_jwt(result)
+        success_message = {"token": token}
         return responses.create_success_response(success_message, result[0])
 
     elif result[0] == 400:
@@ -47,13 +52,18 @@ def signin_controll():
         return responses.create_error_response(error_message, result)
 
 
+def decoded_jwt(token):
+    user = jwt.decode(token, "key123", algorithms="HS256")
+    return user
+
+
 def auth_controll():
     auth_header = request.headers.get("Authorization")
     token = auth_header.replace("Bearer ", "")
 
     try:
-        decoded_jwt = jwt.decode(token, "key123", algorithms="HS256")
-        result = users.auth_to_db(decoded_jwt)
+        user = decoded_jwt(token)
+        result = users.auth_to_db(user)
         success_message = {
             "data": {
                 "id": result[1]["id"],
