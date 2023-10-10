@@ -59,7 +59,7 @@ function renderBookingData(data) {
 function cancelbooking(data) {
     let bookingDelete = document.getElementById('bookingDelete');
     bookingDelete.addEventListener('click', function() {
-        fetch(`/api/booking`, {method: 'DELETE', headers: {"Content-Type": "application/json", "Authorization": `Bearer ${token}`}, body: JSON.stringify(data.data['attraction']['id'])})
+        fetch(`/api/booking`, {method: 'DELETE', headers: {"Content-Type": "application/json", "Authorization": `Bearer ${token}`}, body: JSON.stringify({ "attractionId": data.data['attraction']['id'] })})
         .then(window.location.reload())
     })
 }
