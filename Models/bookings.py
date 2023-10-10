@@ -25,8 +25,8 @@ def execute_sql_all(sql, *args):
             return cursor.fetchall()
 
 
-def create_booking_to_db(data, user):
-    user_id = user["id"]
+def create_booking_to_db(user_id, data):
+    user_id = user_id
     attraction_id = data["attractionId"]
     date = data["date"]
     time = data["time"]
@@ -50,9 +50,9 @@ def create_booking_to_db(data, user):
                     cursor.execute(SQL, values)
                 pooling.commit()
 
-        return 200
+        return 200, None
     except:
-        return 500
+        return 500, None
 
 
 def search_booking_to_db(user_id):

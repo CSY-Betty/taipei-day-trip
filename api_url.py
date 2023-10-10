@@ -49,9 +49,10 @@ def booking():
         user_id = user_decode["data"]["id"]
 
         if request.method == "GET":
-            return control_booking.get_bookings()
+            return control_booking.get_bookings(user_id)
         elif request.method == "POST":
-            return control_booking.create_booking(user_decode)
+            data = request.get_json()
+            return control_booking.create_booking(user_id, data)
         elif request.method == "DELETE":
             return control_booking.delete_booking()
     else:
