@@ -23,9 +23,10 @@ def json_serial(obj):
 
 def get_bookings(user_id):
     status_code, result = bookings_todb.search_booking_to_db(user_id)
-    images = json.loads(result[0]["images"])
-    date = json_serial(result[0]["date"])
-    if status_code == 200:
+
+    if result is not None and len(result) > 0:
+        images = json.loads(result[0]["images"])
+        date = json_serial(result[0]["date"])
         success_message = {
             "data": {
                 "attraction": {
@@ -42,16 +43,16 @@ def get_bookings(user_id):
     else:
         success_message = None
 
-    return responses.create_success_response(success_message, 200)
+    return responses.create_success_response(success_message, status_code)
 
 
-def delete_booking():
+def delete_booking(user_id, attraction_id):
     try:
-        session.clear()
+        status_code, result = bookings_todb.delete_booking_to_db(user_id, attraction_id)
 
         success_message = {"ok": True}
-        return responses.create_success_response(success_message, 200)
+        return responses.create_success_response(success_message, status_code)
 
     except:
-        error_message = "未登入系統，拒絕存取"
-        return responses.create_error_response(error_message, 403)
+        error_message = "刪除異常"
+        return responses.create_error_response(error_message, 500)

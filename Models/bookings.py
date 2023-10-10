@@ -70,7 +70,7 @@ def delete_booking_to_db(user_id, attraction_id):
                 values = (user_id, attraction_id)
                 cursor.execute(SQL, values)
             pooling.commit()
-        return 200
+        return 200, None
 
     except:
-        return 500
+        return 500, None
