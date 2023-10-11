@@ -16,3 +16,5 @@ CREATE TABLE bookings(
 SELECT * FROM bookings;
 
 TRUNCATE users;
+
+DELETE FROM bookings WHERE user_id = 11 AND attraction_id = 2;

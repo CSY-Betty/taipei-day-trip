@@ -55,8 +55,7 @@ def booking():
             return control_booking.create_booking(user_id, data)
         elif request.method == "DELETE":
             data = request.get_json()
-            attraction_id = data["attractionId"]
-            return control_booking.delete_booking(user_id, attraction_id)
+            return control_booking.delete_booking(user_id, data)
     else:
         error_message = "未登入系統，拒絕存取"
         return responses.create_error_response(error_message, 403)
