@@ -1,13 +1,24 @@
 import mysql.connector
+import configparser
+import os
+
+current_directory = os.path.dirname(__file__)
+ini_file_path = os.path.join(current_directory, "../setting.ini")
+
+
+config = configparser.ConfigParser()
+config.read(ini_file_path)
+
+db_config = config["database"]
 
 # connect to sql by pool
 pool = mysql.connector.pooling.MySQLConnectionPool(
-    pool_name="mypool",
+    pool_name=db_config["pool_name"],
     pool_size=5,
-    host="localhost",
-    user="root",
-    password="root123",
-    database="tdtWeb",
+    host=db_config["host"],
+    user=db_config["user"],
+    password=db_config["password"],
+    database=db_config["database"],
 )
 
 
