@@ -37,7 +37,7 @@ def delete_booking_to_db(user_id, attraction_id):
     try:
         SQL = "DELETE FROM bookings WHERE user_id = %s AND attraction_id = %s"
         attraction_id = attraction_id["attractionId"]
-        values = (user_id, attraction_id)  # values:  <class 'tuple'>
+        values = (user_id, attraction_id)
         sql_connect.update_sql(SQL, *values)
         return 200, None
 
