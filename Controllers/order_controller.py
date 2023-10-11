@@ -78,6 +78,3 @@ def get_payment(order_id):
         "status": 1,
     }
     return responses.create_success_response(success_message, 200)
-
-
-# {'order_id': 20231003233257, 'order_description': '{"price": 2000, "trip": {"attraction": {"id": "1", "name": "\\u65b0\\u5317\\u6295\\u6eab\\u6cc9\\u5340", "address": "\\u81fa\\u5317\\u5e02  \\u5317\\u6295\\u5340\\u4e2d\\u5c71\\u8def\\u3001\\u5149\\u660e\\u8def\\u6cbf\\u7dda", "image": "https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000848.jpg"}}, "date": "morning", "time": "2023-09-30"}', 'contact': '{"name": "aaa", "email": "aaa@bbb.cc", "phone": "1234567890"}'}
