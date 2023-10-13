@@ -1,188 +1,169 @@
-import * as divBuilder from './div-builder.js' 
-import * as fetchData from './fetchData.js'
+import * as divBuilder from "./div-builder.js";
+import * as fetchData from "./fetchData.js";
 
-
-let nextPage = null; 
+let nextPage = null;
 let isLoading = false;
-let searchQuery = '';
-
-
-
-
-
+let searchQuery = "";
 
 // 監聽器-list_bar
 function mrtButtonHandler() {
-    let mrtButtons = document.querySelectorAll(".mrt_button");
-    mrtButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const buttonText = this.textContent;
-            
-            let searchQuery = buttonText;
-            clearCurrentContent();
-            searchByKeyword(searchQuery);
+	let mrtButtons = document.querySelectorAll(".mrt_button");
+	mrtButtons.forEach((button) => {
+		button.addEventListener("click", function () {
+			const buttonText = this.textContent;
 
-            // 更換搜尋欄顯示文字
-            let searchBox = document.getElementById("searchBox");
-                searchBox.value = "";
-            searchBox.setAttribute("placeholder", buttonText);			
-        });
-    });
-};
+			let searchQuery = buttonText;
+			clearCurrentContent();
+			searchByKeyword(searchQuery);
 
-
-function loadAttractionData() {
-    fetchData.getAttractionData().then(attractionData => {
-        nextPage = attractionData.nextPage;
-        searchQuery = null;
-        divBuilder.createAttraction(attractionData)
-    });
+			// 更換搜尋欄顯示文字
+			let searchBox = document.getElementById("searchBox");
+			searchBox.value = "";
+			searchBox.setAttribute("placeholder", buttonText);
+		});
+	});
 }
 
+function loadAttractionData() {
+	fetchData.getAttractionData().then((attractionData) => {
+		nextPage = attractionData.nextPage;
+		searchQuery = null;
+		divBuilder.createAttraction(attractionData);
+	});
+}
 
 // 清空現有頁面
 function clearCurrentContent() {
-    const attractionWrappers = document.querySelectorAll(".attraction_wrapper");
+	const attractionWrappers = document.querySelectorAll(".attraction_wrapper");
 
-	const attractionNoData = document.querySelectorAll(".attraction_nodata")
-	
-    attractionWrappers.forEach(element => {
-        element.remove();
-    });
-	attractionNoData.forEach(element => {
-        element.remove();
-    });
+	const attractionNoData = document.querySelectorAll(".attraction_nodata");
+
+	attractionWrappers.forEach((element) => {
+		element.remove();
+	});
+	attractionNoData.forEach((element) => {
+		element.remove();
+	});
 }
-
 
 // 景點查詢按鈕
 const searchButton = document.getElementById("searchButton");
-searchButton.addEventListener("click", function(){
+searchButton.addEventListener("click", function () {
 	searchQuery = document.getElementById("searchBox").value;
-    clearCurrentContent();
+	clearCurrentContent();
 	searchByKeyword(searchQuery);
 });
 
-
-
 // 關鍵字查詢
 function searchByKeyword(searchQuery) {
-    fetchData.getKeywordData(searchQuery).then(data => {
-        const attractionData = data.data
-        if (attractionData.length === 0) {
-            divBuilder.createNoData();
-        } else {
-            nextPage = data.nextPage;
-            divBuilder.createAttraction(data);
-        }
-    })
+	fetchData.getKeywordData(searchQuery).then((data) => {
+		const attractionData = data.data;
+		if (attractionData.length === 0) {
+			divBuilder.createNoData();
+		} else {
+			nextPage = data.nextPage;
+			divBuilder.createAttraction(data);
+		}
+	});
 }
-
 
 // 滾動加載監聽
-window.addEventListener("scroll", function(e) {
-	loadMore(searchQuery)
+window.addEventListener("scroll", function (e) {
+	loadMore(searchQuery);
+});
+
+function loadMore(searchQuery) {
+	if (nextPage === null || isLoading) {
+		return; // 停止加載
 	}
-)
 
-function loadMore(searchQuery){
-    if (nextPage === null  || isLoading) {
-        return; // 停止加載
-    }
+	// 整個畫面的高度
+	const scrollHeight = document.documentElement.scrollHeight;
+	const scrollTop = window.scrollY;
+	const clientHeight = window.innerHeight;
+	const scrollThreshold = 100; // 設置滾動閾值，用於觸發加載
 
-    // 整個畫面的高度
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = window.scrollY;
-    const clientHeight = window.innerHeight;
-    const scrollThreshold = 100; // 設置滾動閾值，用於觸發加載
-
-    // 當滾動到接近頁面底部時，觸發加載
-    if (scrollHeight - scrollTop - clientHeight < scrollThreshold) {
+	// 當滾動到接近頁面底部時，觸發加載
+	if (scrollHeight - scrollTop - clientHeight < scrollThreshold) {
 		isLoading = true;
 
-		const searchurl = searchQuery !== null
-  		? `/api/attractions?keyword=${searchQuery}&page=${nextPage}`
-  		: `/api/attractions?page=${nextPage}`;
+		const searchurl =
+			searchQuery !== null
+				? `/api/attractions?keyword=${searchQuery}&page=${nextPage}`
+				: `/api/attractions?page=${nextPage}`;
 
-        fetch(searchurl, {
-            method: "GET",
-            headers: {	
-                "Content-Type": "application/json",
-            },
-        })
-        .then(response => response.json())
-        .then(function (responseData) {
-			
-			divBuilder.createAttraction(responseData);
+		fetch(searchurl, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((response) => response.json())
+			.then(function (responseData) {
+				divBuilder.createAttraction(responseData);
 
-			nextPage = responseData.nextPage;
+				nextPage = responseData.nextPage;
 
-			if (nextPage === null) {
-				window.removeEventListener("scroll", loadMore);
-			}
+				if (nextPage === null) {
+					window.removeEventListener("scroll", loadMore);
+				}
 
-			isLoading = false;
-        	
-		});
-    }
+				isLoading = false;
+			});
+	}
 }
-
 
 // 清空搜尋框
 function resetSearchBox() {
-    const searchBox = document.getElementById("searchBox");
-    searchBox.value = "";
-    searchBox.setAttribute("placeholder", "輸入景點名稱查詢");
+	const searchBox = document.getElementById("searchBox");
+	searchBox.value = "";
+	searchBox.setAttribute("placeholder", "輸入景點名稱查詢");
 }
 
 // listBar左右滾動
 function listBarScroll() {
-    let leftBtn = document.getElementById("left_btn")
-    let rightBtn = document.getElementById("right_btn")
+	let leftBtn = document.getElementById("left_btn");
+	let rightBtn = document.getElementById("right_btn");
 
-    leftBtn.addEventListener("click", () => scroll('left'));
-    rightBtn.addEventListener("click", () => scroll('right'));
+	leftBtn.addEventListener("click", () => scroll("left"));
+	rightBtn.addEventListener("click", () => scroll("right"));
 }
 
 function scroll(direction) {
-    const mrtsContainer = document.getElementById("mrts_container");
-    const currentScrollLeft = mrtsContainer.scrollLeft;
-    const scrollAmount = mrtsContainer.clientWidth - 20;
-    let newScrollLeft;
+	const mrtsContainer = document.getElementById("mrts_container");
+	const currentScrollLeft = mrtsContainer.scrollLeft;
+	const scrollAmount = mrtsContainer.clientWidth - 20;
+	let newScrollLeft;
 
-    if (direction === 'left') {
-        newScrollLeft = currentScrollLeft - scrollAmount;
-    }
-    else if (direction === 'right') {
-        newScrollLeft = currentScrollLeft + scrollAmount;
-    }
-    mrtsContainer.scroll({top: 0, left: newScrollLeft, behavior: "smooth"});
+	if (direction === "left") {
+		newScrollLeft = currentScrollLeft - scrollAmount;
+	} else if (direction === "right") {
+		newScrollLeft = currentScrollLeft + scrollAmount;
+	}
+	mrtsContainer.scroll({ top: 0, left: newScrollLeft, behavior: "smooth" });
 }
 
-
 loadAttractionData();
-fetchData.getMRTData().then(MrtData => {
-    divBuilder.createMrtList(MrtData);
-    mrtButtonHandler();
+fetchData.getMRTData().then((MrtData) => {
+	divBuilder.createMrtList(MrtData);
+	mrtButtonHandler();
 });
 
 // list_bar左右捲動
 listBarScroll();
 
-
 function handleAttractionClick() {
-    let attraction = document.getElementById('attractions');
-    attraction.addEventListener("click", function(event) {
-        let attractionWrapper = event.target.closest(".attraction_wrapper");
-        if (attractionWrapper)  {
-            let attractionId = attractionWrapper.getAttribute("attractionId");
+	let attraction = document.getElementById("attractions");
+	attraction.addEventListener("click", function (event) {
+		let attractionWrapper = event.target.closest(".attraction_wrapper");
+		if (attractionWrapper) {
+			let attractionId = attractionWrapper.getAttribute("attractionId");
 
-            const attractionLink = `/attraction/${attractionId}`
-            
-            window.location.href = attractionLink;
-        }
-    })
+			const attractionLink = `/attraction/${attractionId}`;
+
+			window.location.href = attractionLink;
+		}
+	});
 }
 
 handleAttractionClick();
-
