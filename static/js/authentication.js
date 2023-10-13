@@ -1,7 +1,7 @@
-import { fetchData } from "./fetchData.js";
+import { fetchUserData } from "./fetchAPI.js";
 
 function checkAuthentication(token) {
-	return fetchData(
+	return fetchUserData(
 		"/api/user/auth",
 		"POST",
 		{

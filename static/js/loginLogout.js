@@ -1,4 +1,4 @@
-import { fetchData } from "./fetchData.js";
+import { fetchUserData } from "./fetchAPI.js";
 
 function validateAndLogin(email, password) {
 	if (email.trim() === "" || password.trim() === "") {
@@ -9,7 +9,7 @@ function validateAndLogin(email, password) {
 		password: password,
 	};
 
-	return fetchData(
+	return fetchUserData(
 		"/api/user/auth",
 		"PUT",
 		{ "Content-Type": "application/json" },
@@ -36,7 +36,7 @@ function validateAndSignup(name, email, password) {
 		password: password,
 	};
 
-	return fetchData(
+	return fetchUserData(
 		"/api/user",
 		"POST",
 		{ "Content-Type": "application/json" },
