@@ -33,7 +33,7 @@ def signin():
     return control_user.signin_controll()
 
 
-@apibp.route("/user/auth", methods=["GET"])
+@apibp.route("/user/auth", methods=["POST"])
 def auth():
     return control_user.auth_controll()
 
