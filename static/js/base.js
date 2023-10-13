@@ -1,16 +1,19 @@
-let titleButton = document.getElementById("title");
-titleButton.addEventListener("click", function(){
-	window.location.href = '/';
+import { setupLoginDialogHandlers } from "./loginLogout.js";
+import { handleAuthentication } from "./authentication.js";
+
+const token = localStorage.getItem("token");
+
+document.getElementById("title").addEventListener("click", () => {
+	window.location.href = "/";
 });
 
-
-let bookingButton = document.getElementById('bookingButton')
-let token = localStorage.getItem("token");
-bookingButton.addEventListener("click", function() {
-	if (token) {
-		window.location.href = '/booking';
-	}
-	else {
+document.getElementById("bookingButton").addEventListener("click", () => {
+	if (token !== null && token !== undefined) {
+		window.location.href = "/booking";
+	} else {
 		loginDialog.showModal();
 	}
-})
+});
+
+setupLoginDialogHandlers();
+handleAuthentication(token);
