@@ -1,8 +1,8 @@
-import { fetchUserData } from "./fetchAPI.js";
+import { fetchUserData } from './fetchAPI.js';
 
 function validateAndLogin(email, password) {
-	if (email.trim() === "" || password.trim() === "") {
-		return Promise.reject("請輸入電子郵件或密碼");
+	if (email.trim() === '' || password.trim() === '') {
+		return Promise.reject('請輸入電子郵件或密碼');
 	}
 	const loginData = {
 		email: email,
@@ -10,13 +10,13 @@ function validateAndLogin(email, password) {
 	};
 
 	return fetchUserData(
-		"/api/user/auth",
-		"PUT",
-		{ "Content-Type": "application/json" },
+		'/api/user/auth',
+		'PUT',
+		{ 'Content-Type': 'application/json' },
 		JSON.stringify(loginData)
 	).then((data) => {
-		localStorage.setItem("token", data.token);
-		return "登入成功";
+		localStorage.setItem('token', data.token);
+		return '登入成功';
 	});
 }
 
@@ -25,9 +25,9 @@ function validateAndSignup(name, email, password) {
 		/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
 	if (!emailRule.test(email)) {
-		return Promise.reject("Email 錯誤，請重新輸入");
-	} else if (name.trim() === "" || password.trim() === "") {
-		return Promise.reject("請輸入姓名或密碼");
+		return Promise.reject('Email 錯誤，請重新輸入');
+	} else if (name.trim() === '' || password.trim() === '') {
+		return Promise.reject('請輸入姓名或密碼');
 	}
 
 	const signup = {
@@ -37,9 +37,9 @@ function validateAndSignup(name, email, password) {
 	};
 
 	return fetchUserData(
-		"/api/user",
-		"POST",
-		{ "Content-Type": "application/json" },
+		'/api/user',
+		'POST',
+		{ 'Content-Type': 'application/json' },
 		JSON.stringify(signup)
 	).then((message) => {
 		return message;
@@ -56,17 +56,17 @@ function showModalAndClose(dialogToShow, dialogToClose) {
 }
 
 function displayError(message) {
-	loginDialog.style.height = "307px";
-	loginError.style.display = "block";
-	document.getElementById("loginError").innerHTML = message;
+	loginDialog.style.height = '307px';
+	loginError.style.display = 'block';
+	document.getElementById('loginError').innerHTML = message;
 }
 
 function handleLogin() {
 	document
-		.getElementById("loginButton")
-		.addEventListener("click", function () {
-			const email = document.getElementById("loginEmail").value;
-			const password = document.getElementById("loginPassword").value;
+		.getElementById('loginButton')
+		.addEventListener('click', function () {
+			const email = document.getElementById('loginEmail').value;
+			const password = document.getElementById('loginPassword').value;
 
 			validateAndLogin(email, password)
 				.then((message) => {
@@ -79,25 +79,25 @@ function handleLogin() {
 		});
 }
 
-function displayMessage(message, color = "red") {
-	let registMessage = document.getElementById("registMessage");
-	registDialog.style.height = "369px";
-	registMessage.style.display = "block";
+function displayMessage(message, color = 'red') {
+	let registMessage = document.getElementById('registMessage');
+	registDialog.style.height = '369px';
+	registMessage.style.display = 'block';
 	registMessage.innerHTML = message;
 	registMessage.style.color = color;
 }
 
 function handleRegist() {
 	document
-		.getElementById("registButton")
-		.addEventListener("click", function () {
-			const name = document.getElementById("registName").value;
-			const email = document.getElementById("registEmail").value;
-			const password = document.getElementById("registPassword").value;
+		.getElementById('registButton')
+		.addEventListener('click', function () {
+			const name = document.getElementById('registName').value;
+			const email = document.getElementById('registEmail').value;
+			const password = document.getElementById('registPassword').value;
 
 			validateAndSignup(name, email, password)
 				.then((message) => {
-					displayMessage(message, "green");
+					displayMessage(message, 'green');
 				})
 				.catch((error) => {
 					displayMessage(error);
@@ -105,42 +105,42 @@ function handleRegist() {
 		});
 }
 
-const loginDialog = document.getElementById("loginDialog");
-const registDialog = document.getElementById("registDialog");
+const loginDialog = document.getElementById('loginDialog');
+const registDialog = document.getElementById('registDialog');
 
 export function setupLoginDialogHandlers() {
 	document
-		.getElementById("loginRegisterButton")
-		.addEventListener("click", () => showModalAndClose(loginDialog, null));
+		.getElementById('loginRegisterButton')
+		.addEventListener('click', () => showModalAndClose(loginDialog, null));
 
 	document
-		.getElementById("loginClose")
-		.addEventListener("click", () => showModalAndClose(null, loginDialog));
+		.getElementById('loginClose')
+		.addEventListener('click', () => showModalAndClose(null, loginDialog));
 
 	document
-		.getElementById("loginRegist")
-		.addEventListener("click", () =>
+		.getElementById('loginRegist')
+		.addEventListener('click', () =>
 			showModalAndClose(registDialog, loginDialog)
 		);
 
 	document
-		.getElementById("loginClose")
-		.addEventListener("click", () => showModalAndClose(null, registDialog));
+		.getElementById('loginClose')
+		.addEventListener('click', () => showModalAndClose(null, registDialog));
 
 	document
-		.getElementById("registLogin")
-		.addEventListener("click", () =>
+		.getElementById('registLogin')
+		.addEventListener('click', () =>
 			showModalAndClose(loginDialog, registDialog)
 		);
 
 	document
-		.getElementById("registClose")
-		.addEventListener("click", () => showModalAndClose(null, registDialog));
+		.getElementById('registClose')
+		.addEventListener('click', () => showModalAndClose(null, registDialog));
 
 	document
-		.getElementById("logoutButton")
-		.addEventListener("click", function () {
-			localStorage.removeItem("token");
+		.getElementById('logoutButton')
+		.addEventListener('click', function () {
+			localStorage.removeItem('token');
 			location.reload();
 		});
 
