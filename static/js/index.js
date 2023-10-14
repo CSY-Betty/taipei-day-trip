@@ -1,4 +1,4 @@
-import { renderAttractions, renderMrtList } from './div-builder.js';
+import { renderAttractions, renderMrtList } from './htmlRender.js';
 import { fetchData } from './fetchAPI.js';
 
 let nextPage = null;
