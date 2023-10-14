@@ -68,10 +68,10 @@ function searchByKeyword(searchQuery) {
 	}).then((data) => {
 		const attractionData = data.data;
 		if (attractionData.length === 0) {
-			divBuilder.createNoData();
+			divBuilder.renderAttractions(data);
 		} else {
 			nextPage = data.nextPage;
-			divBuilder.createAttraction(data);
+			divBuilder.renderAttractions(data);
 		}
 	});
 }
@@ -109,7 +109,7 @@ function loadMore(searchQuery) {
 			},
 			null
 		).then(function (responseData) {
-			divBuilder.createAttraction(responseData);
+			divBuilder.renderAttractions(responseData);
 
 			nextPage = responseData.nextPage;
 
