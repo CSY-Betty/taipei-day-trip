@@ -40,6 +40,13 @@
     vertical-align: middle;
 }
 
+.slide__direction {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+}
 
 .slide__arraw:hover {
     opacity: 0.7;
@@ -49,14 +56,12 @@
 
 .slide__arraw--prev {
     position: absolute;
-    top: 50%;
     left: 10px;
     opacity: 0.5;
 }
 
 .slide__arraw--next {
     position: absolute;
-    top: 50%;
     right: 10px;
     opacity: 0.5;
 
