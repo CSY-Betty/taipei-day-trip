@@ -36,9 +36,8 @@ def search_booking_to_db(user_id):
 def delete_booking_to_db(user_id, attraction_id):
     try:
         SQL = "DELETE FROM bookings WHERE user_id = %s AND attraction_id = %s"
-        attraction_id = attraction_id["attractionId"]
-        values = (user_id, attraction_id)
-        sql_connect.update_sql(SQL, *values)
+
+        sql_connect.update_sql(SQL, user_id, attraction_id)
         return 200, None
 
     except Exception as e:
