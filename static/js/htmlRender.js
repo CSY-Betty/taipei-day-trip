@@ -1,4 +1,3 @@
-// 建立list_bar
 export function renderMrtList(data) {
 	let container = document.getElementById('mrts_container');
 
