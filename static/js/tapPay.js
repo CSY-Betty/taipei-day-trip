@@ -102,7 +102,7 @@ function onSubmit(event) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
 				window.location.href = `/thankyou?number=${data.data.number}`;
 			});
 
