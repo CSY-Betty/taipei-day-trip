@@ -7,46 +7,54 @@ import Views.response as responses
 
 def signup_controll():
     data = request.get_json()
-    result = users.signup_to_db(data)
+    status_code, result = users.signup_to_db(data)
 
-    if result == 200:
+    if status_code == 200:
         success_message = {"ok": True}
-        return responses.create_success_response(success_message, result)
-    elif result == 400:
+        return responses.create_success_response(success_message, status_code)
+    elif status_code == 400:
         error_message = "註冊失敗，重複的 Email 或其他原因"
-        return responses.create_error_response(error_message, result)
+        return responses.create_error_response(error_message, status_code)
     else:
         error_message = "伺服器內部錯誤"
-        return responses.create_error_response(error_message, result)
+        return responses.create_error_response(error_message, status_code)
+
+
+def encoded_jwt(user_data):
+    payload = {
+        "id": user_data["id"],
+        "name": user_data["name"],
+        "email": user_data["email"],
+        "exp": datetime.utcnow() + timedelta(days=7),
+    }
+    token = jwt.encode(
+        payload,
+        "key123",
+        algorithm="HS256",
+    )
+    return token
 
 
 def signin_controll():
     data = request.get_json()
-    result = users.signin_to_db(data)
+    status_code, result = users.signin_to_db(data)
 
-    if result[0] == 200:
-        payload = {
-            "id": result[1]["id"],
-            "name": result[1]["name"],
-            "email": result[1]["email"],
-            "exp": datetime.utcnow() + timedelta(days=7),
-        }
-        encoded_jwt = jwt.encode(
-            payload,
-            "key123",
-            algorithm="HS256",
-        )
-        success_message = {"token": encoded_jwt}
-        response = responses.create_success_response(success_message, result[0])
-        response.headers["Authorization"] = encoded_jwt
-        return response
+    if status_code == 200:
+        token = encoded_jwt(result)
+        success_message = {"token": token}
+        return responses.create_success_response(success_message, status_code)
 
-    elif result[0] == 400:
+    elif status_code == 400:
         error_message = "登入失敗，帳號或密碼錯誤"
-        return responses.create_error_response(error_message, result[0])
+        return responses.create_error_response(error_message, status_code)
     else:
         error_message = "伺服器內部錯誤"
-        return responses.create_error_response(error_message, result)
+        return responses.create_error_response(error_message, status_code)
+
+
+def decoded_jwt(token):
+    user = jwt.decode(token, "key123", algorithms="HS256")
+    return user
 
 
 def auth_controll():
@@ -54,16 +62,16 @@ def auth_controll():
     token = auth_header.replace("Bearer ", "")
 
     try:
-        decoded_jwt = jwt.decode(token, "key123", algorithms="HS256")
-        result = users.auth_to_db(decoded_jwt)
+        user = decoded_jwt(token)
+        status_code, user_data = users.auth_to_db(user)
         success_message = {
             "data": {
-                "id": result[1]["id"],
-                "name": result[1]["name"],
-                "email": result[1]["email"],
+                "id": user_data["id"],
+                "name": user_data["name"],
+                "email": user_data["email"],
             }
         }
-        return responses.create_success_response(success_message, 200)
+        return responses.create_success_response(success_message, status_code)
     except jwt.ExpiredSignatureError:
         error_message = "Signature has expired."
         return responses.create_error_response(error_message, 401)

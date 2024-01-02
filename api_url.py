@@ -33,7 +33,7 @@ def signin():
     return control_user.signin_controll()
 
 
-@apibp.route("/user/auth", methods=["GET"])
+@apibp.route("/user/auth", methods=["POST"])
 def auth():
     return control_user.auth_controll()
 
@@ -43,16 +43,19 @@ def booking():
     auth = control_user.auth_controll()
 
     if auth.status_code == 200:
-        data = auth.response
+        user = auth.response
         # b'{"data": {"id": 11, "name": "aaa", "email": "aaa@bbb.cc"}}'
-        data_decode = json.loads(data[0].decode("utf-8"))
+        user_decode = json.loads(user[0].decode("utf-8"))
+        user_id = user_decode["data"]["id"]
 
         if request.method == "GET":
-            return control_booking.get_bookings()
+            return control_booking.get_bookings(user_id)
         elif request.method == "POST":
-            return control_booking.create_booking(data_decode)
+            data = request.get_json()
+            return control_booking.create_booking(user_id, data)
         elif request.method == "DELETE":
-            return control_booking.delete_booking()
+            data = request.get_json()
+            return control_booking.delete_booking(user_id, data)
     else:
         error_message = "未登入系統，拒絕存取"
         return responses.create_error_response(error_message, 403)

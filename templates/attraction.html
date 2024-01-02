@@ -4,16 +4,19 @@
 <section class="container">
 	<div id="infoContainer" class="attraction-info">
 		<div id="imageSlide" class="slideshow">
-			<img
-				id="prev"
-				class="slide__arraw slide__arraw--prev"
-				src="../static/image/img_prev.png"
-			/>
-			<img
-				id="next"
-				class="slide__arraw slide__arraw--next"
-				src="../static/image/img_next.png"
-			/>
+			<div class="slide__direction">
+				<img
+					id="prev"
+					class="slide__arraw slide__arraw--prev"
+					src="../static/image/img_prev.png"
+				/>
+				<img
+					id="next"
+					class="slide__arraw slide__arraw--next"
+					src="../static/image/img_next.png"
+				/>
+			</div>
+
 			<div id="slideDot" class="slide__dot"></div>
 		</div>
 		<div id="menu" class="menu">
@@ -75,9 +78,9 @@
 <main class="container">
 	<div id="description" class="description">
 		<span class="description__title body-bold">景點地址：</span>
-		<span class="description__title body-bold">交通方式</span>
+		<span class="description__title body-bold">交通方式：</span>
 	</div>
 </main>
 {% endblock %} {% block Script %}
-<script defer type="text/javascript" src="../static/js/attraction.js"></script>
+<script defer type="module" src="../static/js/attraction.js"></script>
 {% endblock %}

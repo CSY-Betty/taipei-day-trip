@@ -1,56 +1,58 @@
 from flask import *
 import Views.response as responses
+import Models.bookings as bookings_todb
+from datetime import date, datetime
 
 
-def create_booking(user):
-    data = request.get_json()
-    try:
-        session["user_id"] = user["data"]["id"]
-        session["attraction_id"] = data["attractionId"]
-        session["attraction_name"] = data["attractionName"]
-        session["atteaction_address"] = data["attractionAddress"]
-        session["date"] = data["date"]
-        session["time"] = data["time"]
-        session["price"] = data["price"]
-        session["attractionImage"] = data["attractionImage"]
-        # <SecureCookieSession {'atteaction_address': '臺北市  北投區中山路、光明路沿線', 'attractionImage': 'https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000848.jpg', 'attraction_id': '1', 'attraction_name': '新北投溫泉區', 'date': '2023-09-30', 'id': 11, 'price': 2000, 'time': 'morning', 'user_id': 11}>
-
+def create_booking(user_id, data):
+    status_code, result = bookings_todb.create_booking_to_db(user_id, data)
+    if status_code == 200:
         success_message = {"ok": True}
         return responses.create_success_response(success_message, 200)
 
-    except:
+    else:
         error_message = "建立失敗，輸入異常"
         return responses.create_error_response(error_message, 400)
 
 
-def get_bookings():
-    if "user_id" in session:
+def json_serial(obj):
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError("Type %s not serializable" % type(obj))
+
+
+def get_bookings(user_id):
+    status_code, result = bookings_todb.search_booking_to_db(user_id)
+
+    if result is not None and len(result) > 0:
+        images = json.loads(result[0]["images"])
+        date = json_serial(result[0]["date"])
         success_message = {
             "data": {
                 "attraction": {
-                    "id": session["attraction_id"],
-                    "name": session["attraction_name"],
-                    "address": session["atteaction_address"],
-                    "image": session["attractionImage"],
+                    "id": result[0]["attraction_id"],
+                    "name": result[0]["name"],
+                    "address": result[0]["address"],
+                    "image": images[0],
                 },
-                "date": session["date"],
-                "time": session["time"],
-                "price": session["price"],
+                "date": date,
+                "time": result[0]["time"],
+                "price": result[0]["price"],
             }
         }
     else:
         success_message = None
 
-    return responses.create_success_response(success_message, 200)
+    return responses.create_success_response(success_message, status_code)
 
 
-def delete_booking():
+def delete_booking(user_id, attraction_id):
     try:
-        session.clear()
+        status_code, result = bookings_todb.delete_booking_to_db(user_id, attraction_id)
 
         success_message = {"ok": True}
-        return responses.create_success_response(success_message, 200)
+        return responses.create_success_response(success_message, status_code)
 
     except:
-        error_message = "未登入系統，拒絕存取"
-        return responses.create_error_response(error_message, 403)
+        error_message = "刪除異常"
+        return responses.create_error_response(error_message, 500)
