@@ -4,7 +4,7 @@
 
 "Taipei Day Trip" is an e-commerce travel website for booking day tours.
 
-![index_picture](./doc/截圖%202024-01-02%20下午3.07.43.png)
+![index_picture](./doc/index.png)
 
 ## Technique
 
@@ -18,3 +18,9 @@
 
 -   Flask
 -   MySQL
+
+## Structure
+
+### Database
+
+![database](./doc/database%20structure.png)
