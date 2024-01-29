@@ -1,28 +1,32 @@
 from flask import *
 
-import Models.attractions as attractions
-import Views.response as response
+import src.Models.attractions as attractions
+import src.Views.response as response
+
+
+def process_attractions_request():
+    page = request.args.get("page", type=int, default=0)
+    per_page = 12
+
+    keyword = request.args.get("keyword", None)
+
+    result = attractions.get_all_attractions(keyword, page, per_page)
+
+    result_list = [dict(row) for row in result[:per_page]]
+
+    for item in result_list:
+        item["images"] = json.loads(item["images"])
+
+    next_page = page + 1 if len(result) > per_page else None
+    success_message = {"nextPage": next_page, "data": result_list}
+
+    return success_message
 
 
 def generate_attractions():
     try:
-        page = request.args.get("page", type=int, default=0)
-        per_page = 12
-
-        keyword = request.args.get("keyword", None)
-
-        result = attractions.get_all_attractions(keyword, page, per_page)
-
-        result_list = [dict(row) for row in result[:per_page]]
-
-        for item in result_list:
-            item["images"] = json.loads(item["images"])
-
-        next_page = page + 1 if len(result) > per_page else None
-        success_message = {"nextPage": next_page, "data": result_list}
-
+        success_message = process_attractions_request()
         return response.create_success_response(success_message, 200)
-
     except Exception:
         error_message = "伺服器異常"
         return response.create_error_response(error_message, 500)

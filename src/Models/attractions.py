@@ -1,4 +1,4 @@
-import Models.sqlcon as sql_connect
+from . import sqlcon as sql_connect
 
 
 def get_all_attractions(keyword, page, per_page):
